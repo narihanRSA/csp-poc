@@ -9,7 +9,7 @@
     </div>
     <img  src="../assets/rsa-logo.png" width="80px" style="padding-left:40px;">
     <span class="example-spacer"></span>
-    <p style="text-align:center;font-size: 15px;padding-top:15px;">
+    <form style="text-align:center;font-size: 15px;padding-top:15px;">
       <mat-form-field appearance="legacy">
         <mat-label>Search</mat-label>
         <input matInput [(ngModel)]="newSearch" name="newSearch" placeholder="Enter Error Message Here">
@@ -18,7 +18,7 @@
       <button mat-icon-button type="submit" (click)="search()" aria-label="Example icon button with a open in new tab icon">
         <mat-icon>search</mat-icon>
       </button>
-    </p>
+    </form>
     <span class="icon-spacer"></span>
     <i class="material-icons profile-icon">list</i>
     &nbsp;&nbsp;
