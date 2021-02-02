@@ -1,0 +1,15 @@
+
+<div id="cover">
+  <form method="get" action="">
+    <div class="tb">
+      <div class="td"><input [(ngModel)]="searchText" name="searchText" type="text" placeholder="Search" required></div>
+      <div class="td" id="s-cover">
+        <button type="submit" (click)="navigate('search')">
+          <div id="s-circle"></div>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+

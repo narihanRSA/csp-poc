@@ -1,0 +1,111 @@
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<div id='container'>
+  <mat-toolbar class="example-header">
+    <div id="left">
+      <span id="hamburger" class="e-icons menu default" (click)="openClick()"></span>
+    </div>
+    <img  src="../assets/rsa-logo.png" width="80px" style="padding-left:40px;">
+    <span class="example-spacer"></span>
+    <p style="text-align:center;font-size: 15px;padding-top:15px;">
+      <mat-form-field appearance="legacy">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="newSearch" name="newSearch" placeholder="Enter Error Message Here">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+      <button mat-icon-button type="submit" (click)="search()" aria-label="Example icon button with a open in new tab icon">
+        <mat-icon>search</mat-icon>
+      </button>
+    </p>
+    <span class="icon-spacer"></span>
+    <i class="material-icons profile-icon">list</i>
+    &nbsp;&nbsp;
+    <i class="material-icons profile-icon">help</i>
+    &nbsp;&nbsp;
+    <i class="material-icons profile-icon">settings</i>
+    &nbsp;&nbsp;
+    <i class="material-icons profile-icon">account_circle</i>
+  </mat-toolbar>
+  <!-- declaration of sidebar element -->
+  <div id="wrapper" style="padding-top:5em;">
+    <!--Sidebar element declaration -->
+    <ejs-sidebar id="default-sidebar" #sidebar [width]='width'
+      style="visibility: hidden;margin-top: 6em;border-right:2px solid whitesmoke">
+      <div class="sidebar-header header-cover">
+        <!-- <div class="image-container">
+          <div class="sidebar-image">
+          </div>
+        </div> -->
+        <div style="padding: 0 0 5px 0;">
+          <h3 class="section-subheading text-muted">Searching for <br> {{searchText}}</h3>
+        </div>
+      </div>
+
+      <!-- Sidebar navigation -->
+      <ul class="nav sidebar-nav">
+        <li>
+          <a href="#">
+            <i class="sf-icon-sidebar sf-icon-file"></i>
+            <span class="e-text"> Articles</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="sf-icon-sidebar sf-icon-starred"></i>
+            <span class="e-text"> Cases</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="sf-icon-sidebar sf-icon-recent"></i>
+            <span class="e-text">Defects</span>
+          </a>
+        </li>
+      </ul>
+    </ejs-sidebar>
+    <!-- main content declaration -->
+    <div>
+      <div>
+        <div class="e-control e-listview e-list-template e-touch">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+              class="articles_panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <i class="material-icons icon">import_contacts</i>
+                  <label style="padding-left:3px;">Articles</label>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-divider [inset]="true"></mat-divider>
+              <table mat-table *ngIf="search_results.length>0" [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="article_number">
+                  <th mat-header-cell *matHeaderCellDef> Article Number </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ArticleNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                  <th mat-header-cell *matHeaderCellDef> Article Title </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+    <!--end of main content declaration -->
+  </div>
+</div>

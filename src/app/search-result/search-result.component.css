@@ -1,5 +1,5 @@
-@import '../../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css';
-@import '../../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-base/styles/material.css';
 
 .mat-form-field + .mat-form-field {
   margin-left: 8px;
@@ -411,4 +411,3 @@ li.e-list-item {
   height: 477px;
   overflow: hidden;
 }
-
