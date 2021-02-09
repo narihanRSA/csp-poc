@@ -64,7 +64,7 @@ export class SearchResultComponent implements AfterViewInit {
 
   ngOnInit() {
     this.searchText=this.route.snapshot.queryParams['search'];
-    this.http.get<SearchResults[]>('http://127.0.0.1:80/getArticles?msg='+this.searchText, {
+    this.http.get<SearchResults[]>('http://127.0.0.1:5000/getArticles?msg='+this.searchText, {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin':'*',
         'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type,Accept, Authortization',
@@ -102,7 +102,7 @@ export class SearchResultComponent implements AfterViewInit {
 
   public search(){
     this.searchText=this.newSearch;
-    this.http.get<SearchResults[]>('http://127.0.0.1:80/getArticles?msg='+this.searchText, {
+    this.http.get<SearchResults[]>('http://127.0.0.1:5000/getArticles?msg='+this.searchText, {
       headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
     })
       .pipe(
