@@ -5,17 +5,47 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as Rx from "rxjs/Rx";
 import { from, Observable, throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
-import { SearchResults } from './search-results';
+import { SearchResults } from '../search-result/search-results';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 
 
+export interface PeriodicElement {
+  ArticleNumber: number;
+  Title: string;
+}
+const ELEMENT_DATA: PeriodicElement[] = [
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+ ];
+
 @Component({
-  selector: 'app-search-result',
-  templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.css']
+  selector: 'app-articles-component',
+  templateUrl: './articles-component.component.html',
+  styleUrls: ['./articles-component.component.css']
 })
-export class SearchResultComponent implements AfterViewInit {
+export class ArticlesComponentComponent implements AfterViewInit {
+
   title = 'csp-poc';
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
@@ -31,7 +61,6 @@ export class SearchResultComponent implements AfterViewInit {
   public sidebar!: SidebarComponent;
 
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
-
 
   ngOnInit() {
     this.searchText=this.route.snapshot.queryParams['search'];
@@ -66,6 +95,11 @@ export class SearchResultComponent implements AfterViewInit {
   openClick(): void {
     this.sidebar.toggle();
   }
+
+  onSidenavClose():void{
+    this.sidebar.close();
+  }
+
 
   public onCreated(args: any) {
     this.sidebar.element.style.visibility = '';
