@@ -55,13 +55,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { ArticlesComponentComponent } from './articles-component/articles-component.component';
+import { CasesComponentComponent } from './cases-component/cases-component.component';
+import { DefectsComponentComponent } from './defects-component/defects-component.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    ArticlesComponentComponent,
+    CasesComponentComponent,
+    DefectsComponentComponent
   ],
   imports: [
     SidebarModule,
