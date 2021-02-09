@@ -46,19 +46,19 @@
       <!-- Sidebar navigation -->
       <ul class="nav sidebar-nav">
         <li>
-          <a href="#">
+          <a href="#Articles">
             <i class="sf-icon-sidebar sf-icon-file"></i>
             <span class="e-text"> Articles</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#Cases">
             <i class="sf-icon-sidebar sf-icon-starred"></i>
             <span class="e-text"> Cases</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#Defects">
             <i class="sf-icon-sidebar sf-icon-recent"></i>
             <span class="e-text">Defects</span>
           </a>
@@ -80,7 +80,8 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <mat-divider [inset]="true"></mat-divider>
-              <table mat-table *ngIf="search_results.length>0" [dataSource]="dataSource" class="mat-elevation-z8">
+              <div class="mat-elevation-z8">
+              <table mat-table *ngIf="search_results.length>0" [dataSource]="dataSource">
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> No. </th>
                   <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
@@ -100,8 +101,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
               <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
             </mat-expansion-panel>
-
           </mat-accordion>
         </div>
       </div>

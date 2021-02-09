@@ -11,39 +11,33 @@ import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 
 
 export interface PeriodicElement {
-  article_number: number;
-  position: number;
-  title: string;
-  url: string;
-  type: string;
-  publish_date: string;
-  knowledge_article: string;
+  ArticleNumber: number;
+  Title: string;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-  { position: 1, article_number: 2222, title: 'hi', url: 'www.google.com', type: 'How to', publish_date: '28/8/1995', knowledge_article: 'KA17Jhuwh873282' },
-];
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+  { ArticleNumber: 2222, Title: 'hi' },
+ ];
 
 @Component({
   selector: 'app-search-result',
@@ -62,11 +56,10 @@ export class SearchResultComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
-
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
+
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
 
 
   ngOnInit() {
@@ -89,6 +82,8 @@ export class SearchResultComponent implements AfterViewInit {
         let json = JSON.parse(data2);
         this.search_results = json;
         this.dataSource = new MatTableDataSource<SearchResults>(this.search_results);
+        // this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+        this.dataSource.paginator = this.paginator;
         console.log(this.search_results);
       })
   }
@@ -121,6 +116,7 @@ export class SearchResultComponent implements AfterViewInit {
         let json = JSON.parse(data2);
         this.search_results = json;
         this.dataSource = new MatTableDataSource<SearchResults>(this.search_results);
+        // this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
         console.log(this.search_results);
       })
   }
