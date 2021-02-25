@@ -12,6 +12,10 @@ const routes: Routes = [
     component: SearchResultComponent,
     children: [
       {
+        path: '',
+        component: ArticlesComponentComponent
+      },
+      {
           path: 'articles',
           component: ArticlesComponentComponent
       },
