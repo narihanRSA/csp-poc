@@ -135,5 +135,4 @@ export class ArticlesComponentComponent implements AfterViewInit {
     url += urlToOpen;
     window.open(url, '_blank');
   }
-
 }
