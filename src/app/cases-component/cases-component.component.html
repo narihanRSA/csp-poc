@@ -20,13 +20,13 @@
             </ng-container>
 
             <ng-container matColumnDef="article_number">
-              <th mat-header-cell *matHeaderCellDef> Article Number </th>
-              <td mat-cell *matCellDef="let element"> {{element.ArticleNumber}} </td>
+              <th mat-header-cell *matHeaderCellDef> Case Number </th>
+              <td mat-cell *matCellDef="let element"> {{element.CaseNumber}} </td>
             </ng-container>
 
             <ng-container matColumnDef="title">
-              <th mat-header-cell *matHeaderCellDef> Article Title </th>
-              <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+              <th mat-header-cell *matHeaderCellDef> Case Title </th>
+              <td mat-cell *matCellDef="let element"> {{element.Subject}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

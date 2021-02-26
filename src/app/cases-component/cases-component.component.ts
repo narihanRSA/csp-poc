@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
-import { SearchResults } from '../search-result/search-results';
+import { CasesResults } from '../search-result/search-results';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -45,8 +45,8 @@ export class CasesComponentComponent implements AfterViewInit {
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
-  public search_results: SearchResults[] = [];
-  public dataSource = new MatTableDataSource<SearchResults>(this.search_results);
+  cases=new CasesResults();
+  dataSource = new MatTableDataSource<CasesResults>(this.cases.cases);
   searchText:string="";
   newSearch:string="";
 
@@ -59,28 +59,7 @@ export class CasesComponentComponent implements AfterViewInit {
 
   ngOnInit() {
     this.searchText=this.route.snapshot.queryParams['search'];
-    this.http.get<SearchResults[]>('http://127.0.0.1:5000/getCases?msg='+this.searchText, {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type,Accept, Authortization',
-        'Acces-Control-Allow-Methods':'GET, POST, PATCH, DELETE'
-      })
-    })
-      .pipe(
-        map((data: SearchResults[]) => {
-          return data;
-        }), catchError(error => {
-          return throwError('Something went wrong!');
-        })
-      )
-      .subscribe((data2: any) => {
-        let json = JSON.parse(data2);
-        this.search_results = json;
-        this.dataSource = new MatTableDataSource<SearchResults>(this.search_results);
-        // this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-        this.dataSource.paginator = this.paginator;
-        console.log(this.search_results);
-      })
+    this.dataSource=this.cases.casesResults;
   }
 
   ngAfterViewInit() {
@@ -97,27 +76,6 @@ export class CasesComponentComponent implements AfterViewInit {
 
   public onCreated(args: any) {
     this.sidebar.element.style.visibility = '';
-  }
-
-  public search(){
-    this.searchText=this.newSearch;
-    this.http.get<SearchResults[]>('http://127.0.0.1:5000/getCases?msg='+this.searchText, {
-      headers: new HttpHeaders().set('Access-Control-Allow-Origin', '*')
-    })
-      .pipe(
-        map((data: SearchResults[]) => {
-          return data;
-        }), catchError(error => {
-          return throwError('Something went wrong!');
-        })
-      )
-      .subscribe((data2: any) => {
-        let json = JSON.parse(data2);
-        this.search_results = json;
-        this.dataSource = new MatTableDataSource<SearchResults>(this.search_results);
-        // this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-        console.log(this.search_results);
-      })
   }
 
   open(urlToOpen: string) {

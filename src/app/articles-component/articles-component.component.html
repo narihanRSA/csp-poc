@@ -13,7 +13,7 @@
           </mat-expansion-panel-header>
           <mat-divider [inset]="true"></mat-divider>
           <div class="mat-elevation-z8">
-          <table mat-table *ngIf="search_results.length>0" [dataSource]="dataSource">
+          <table mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> No. </th>
               <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
