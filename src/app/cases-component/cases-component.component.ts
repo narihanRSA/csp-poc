@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
-import { CasesResults, CasesType } from '../search-result/search-results';
+import { CasesResults, CasesType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 

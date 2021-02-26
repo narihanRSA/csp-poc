@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DefectsResults, DefectsType } from '../search-result/search-results';
+import { DefectsResults, DefectsType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';

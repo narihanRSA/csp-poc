@@ -2,9 +2,12 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ArticlesResults, ArticlesType } from '../search-result/search-results';
+import { ArticlesResults, ArticlesType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { liveSearch } from '../live-search.operator';
+import { BlogService } from '../search.service';
 
 
 export interface PeriodicElement {
@@ -49,25 +52,34 @@ export class ArticlesComponentComponent implements AfterViewInit {
   public width: string = '290px';
   articles=new ArticlesResults();
   dataSource = new MatTableDataSource<ArticlesType>(this.articles.articles);
-  searchText:string="";
-  newSearch:string="";
+
+  private articlesSubject=new Subject<string>();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
   sub:any;
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
+
+  readonly articlePosts$=this.articlesSubject.pipe(
+    liveSearch(searchText =>
+      this.service.fetchPosts(searchText)
+    )
+  );
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private service:BlogService) {}
 
   ngOnInit() {
-    //this.searchText=this.route.snapshot.queryParams['search'];
     this.sub=this.route.queryParams.subscribe(params => {
       console.log(params);
       const tempArr= params['arr'];
-      console.log(JSON.parse(tempArr));
-      this.dataSource = new MatTableDataSource<ArticlesType>(JSON.parse(tempArr));
+      tempArr?this.articlesSubject=JSON.parse(tempArr):console.log();
+      //this.dataSource = new MatTableDataSource<ArticlesType>(JSON.parse(tempArr));
     });
   }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
