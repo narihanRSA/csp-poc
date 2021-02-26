@@ -1,39 +1,45 @@
 
 import { MatTableDataSource } from "@angular/material/table";
 
+export interface ArticlesType{
+  ArticleNumber: number;
+  Title: string;
+}
+
 export class ArticlesResults {
-  ArticleNumber: number=0;
-  Title: string='';
-  articles_results: ArticlesResults[]=[];
-  articles_datasource=new MatTableDataSource<ArticlesResults>();
-  get articlesResults(): MatTableDataSource<ArticlesResults> {
-    this.articles_datasource=new MatTableDataSource<ArticlesResults>(this.articles_results);
+  articles_arr: ArticlesType[]=[];
+  articles_datasource=new MatTableDataSource<ArticlesType>();
+  get articlesResults(): MatTableDataSource<ArticlesType> {
+    this.articles_datasource=new MatTableDataSource<ArticlesType>(this.articles_arr);
     return this.articles_datasource;
   }
-  set articles(value: ArticlesResults[]) {
-    this.articles_datasource=new MatTableDataSource<ArticlesResults>(value);
-    this.articles_results = value;
+  set articles(value: ArticlesType[]) {
+    this.articles_datasource=new MatTableDataSource<ArticlesType>(value);
+    this.articles_arr = value;
   }
+}
+
+export interface CasesType{
+  CaseNumber: number;
+  Subject: string;
 }
 
 export class CasesResults {
-  CaseNumber: number=0;
-  Subject: string='';
-  case_results: CasesResults[]=[];
-  cases_datasource=new MatTableDataSource<CasesResults>();
-  get casesResults(): MatTableDataSource<CasesResults> {
-    this.cases_datasource=new MatTableDataSource<CasesResults>(this.case_results);
+  cases_arr: CasesType[]=[];
+  cases_datasource=new MatTableDataSource<CasesType>();
+  get casesResults(): MatTableDataSource<CasesType> {
+    this.cases_datasource=new MatTableDataSource<CasesType>(this.cases_arr);
     return this.cases_datasource;
   }
-  set cases(value: CasesResults[]) {
-    this.cases_datasource=new MatTableDataSource<CasesResults>(value);
-    this.case_results = value;
+  set cases(value: CasesType[]) {
+    this.cases_datasource=new MatTableDataSource<CasesType>(value);
+    this.cases_arr = value;
   }
 }
 
-export class DefectsType{
-  Id: number=0;
-  TITLE__c: string='';
+export interface DefectsType{
+  Id: number;
+  TITLE__c: string;
 }
 
 export class DefectsResults {

@@ -16,8 +16,8 @@ const routes: Routes = [
         component: ArticlesComponentComponent
       },
       {
-          path: 'articles',
-          component: ArticlesComponentComponent
+        path: 'articles',
+        component: ArticlesComponentComponent
       },
       {
         path: 'defects',

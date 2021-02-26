@@ -58,17 +58,17 @@ export class DefectsComponentComponent implements AfterViewInit {
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
-    this.searchText=this.route.snapshot.queryParams['search'];
-    console.log(this.defects.defect_arr);
-    this.dataSource=this.defects.getDefectsResults;
-    this.dataSource.paginator = this.paginator;
+    this.route.queryParams.subscribe(params => {
+      const tempArr= params['arr'];
+      this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    console.log(this.defects.defect_arr);
-    this.dataSource=this.defects.getDefectsResults;
-    this.defects.getDefectsResults
+    this.route.queryParams.subscribe(params => {
+      const tempArr= params['arr'];
+      this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
+    });
   }
 
   openClick(): void {

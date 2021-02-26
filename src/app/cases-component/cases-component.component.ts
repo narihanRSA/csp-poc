@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
-import { CasesResults } from '../search-result/search-results';
+import { CasesResults, CasesType } from '../search-result/search-results';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -46,7 +46,7 @@ export class CasesComponentComponent implements AfterViewInit {
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   cases=new CasesResults();
-  dataSource = new MatTableDataSource<CasesResults>(this.cases.cases);
+  dataSource = new MatTableDataSource<CasesType>(this.cases.cases);
   searchText:string="";
   newSearch:string="";
 
@@ -58,8 +58,10 @@ export class CasesComponentComponent implements AfterViewInit {
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
-    this.searchText=this.route.snapshot.queryParams['search'];
-    this.dataSource=this.cases.casesResults;
+    this.route.queryParams.subscribe(params => {
+      const tempArr= params['arr'];
+      this.dataSource = new MatTableDataSource<CasesType>(JSON.parse(tempArr));
+    });
   }
 
   ngAfterViewInit() {
