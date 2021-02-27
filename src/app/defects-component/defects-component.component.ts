@@ -5,7 +5,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefectsResults, DefectsType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { liveSearch } from '../live-search.operator';
+import { catchError, map } from 'rxjs/operators';
+import { BlogService } from '../search.service';
 
 export interface PeriodicElement {
   ArticleNumber: number;
@@ -55,20 +58,46 @@ export class DefectsComponentComponent implements AfterViewInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private service:BlogService) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const tempArr= params['arr'];
-      this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
-    });
+    console.log("here");
+    this.service.getdefectsSubject.pipe(
+      liveSearch(searchText =>
+        this.service.fetchDefects(searchText).pipe( map((data: DefectsType[]) => {
+          console.log(data);
+          return data;
+        }), catchError(error => {
+          return throwError('Something went wrong!');
+        }))
+      )
+    )
+    .subscribe((value:any) =>{
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<DefectsType>(json);
+    })
   }
 
   ngAfterViewInit() {
-    this.route.queryParams.subscribe(params => {
-      const tempArr= params['arr'];
-      this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   const tempArr= params['arr'];
+    //   this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
+    // });
+    this.dataSource.paginator = this.paginator;
+    this.service.getdefectsSubject.pipe(
+      liveSearch(searchText =>
+        this.service.fetchDefects(searchText).pipe( map((data: DefectsType[]) => {
+          console.log(data);
+          return data;
+        }), catchError(error => {
+          return throwError('Something went wrong!');
+        }))
+      )
+    )
+    .subscribe((value:any) =>{
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<DefectsType>(json);
+    })
   }
 
   openClick(): void {

@@ -7,6 +7,8 @@ import { map, catchError, filter } from 'rxjs/operators';
 import { CasesResults, CasesType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BlogService } from '../search.service';
+import { liveSearch } from '../live-search.operator';
 
 export interface PeriodicElement {
   ArticleNumber: number;
@@ -55,17 +57,44 @@ export class CasesComponentComponent implements AfterViewInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private service:BlogService) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const tempArr= params['arr'];
-      this.dataSource = new MatTableDataSource<CasesType>(JSON.parse(tempArr));
-    });
+    console.log("here");
+    this.service.getcasesSubject.pipe(
+      liveSearch(searchText =>
+        this.service.fetchCases(searchText).pipe( map((data: CasesType[]) => {
+          console.log(data);
+          return data;
+        }), catchError(error => {
+          return throwError('Something went wrong!');
+        }))
+      )
+    )
+    .subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<CasesType>(json);
+    })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.service.getcasesSubject.pipe(
+      liveSearch(searchText =>
+        this.service.fetchCases(searchText).pipe( map((data: CasesType[]) => {
+          console.log(data);
+          return data;
+        }), catchError(error => {
+          return throwError('Something went wrong!');
+        }))
+      )
+    )
+    .subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<CasesType>(json);
+    })
   }
 
   openClick(): void {

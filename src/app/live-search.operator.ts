@@ -3,8 +3,9 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 export function liveSearch<T, R>(
   dataCb: (query: T) => Observable<R>,
-  delay = 250
+  delay = 500
 ) {
+  console.log("LIVE SEARCH")
   return (source$: Observable<T>) => source$.pipe(
     debounceTime(delay),
     distinctUntilChanged(),

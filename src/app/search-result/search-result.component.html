@@ -33,49 +33,46 @@
     <i class="material-icons profile-icon">account_circle</i>
   </mat-toolbar>
 
-  <section id="Articles">
-    <div>
-      <div class="e-control e-listview e-list-template e-touch">
-        <mat-accordion>
-          <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-            class="articles_panel">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <i class="material-icons icon">import_contacts</i>
-                <label style="padding-left:3px;">Articles</label>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-divider [inset]="true"></mat-divider>
-            <ng-container *ngIf="(articlePosts$ | async) as articlePosts">
-            <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="articles_dataSource">
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="article_number">
-                <th mat-header-cell *matHeaderCellDef> Article Number </th>
-                <td mat-cell *matCellDef="let element"> {{element.ArticleNumber}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef> Article Title </th>
-                <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          </div>
-        </ng-container>
-          </mat-expansion-panel>
-        </mat-accordion>
+  <div id="wrapper" style="padding-top:5em;">
+    <!--Sidebar element declaration -->
+    <ejs-sidebar id="default-sidebar" #sidebar [width]='width'
+      style="visibility: hidden;margin-top: 6em;border-right:2px solid whitesmoke">
+      <div class="sidebar-header header-cover">
+        <div style="padding: 0 0 5px 0;">
+          <h3 class="section-subheading text-muted">Searching for <br> {{searchText}}</h3>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <!-- Sidebar navigation -->
+      <ul class="nav sidebar-nav">
+        <li>
+          <a routerLink="articles" (click)="openClick()">
+            <i class="sf-icon-sidebar sf-icon-file"></i>
+            <span class="e-text"> Articles</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="cases" (click)="openClick()">
+            <i class="sf-icon-sidebar sf-icon-starred"></i>
+            <span class="e-text"> Cases</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="defects" (click)="openClick()">
+            <i class="sf-icon-sidebar sf-icon-recent"></i>
+            <span class="e-text">Defects</span>
+          </a>
+        </li>
+      </ul>
+    </ejs-sidebar>
+    <!-- main content declaration -->
+    <section>
+      <app-articles-component></app-articles-component>
+      <app-cases-component></app-cases-component>
+      <app-defects-component></app-defects-component>
+      <!-- <router-outlet></router-outlet> -->
+    </section>
+    <!--end of main content declaration -->
+  </div>
 
 </div>

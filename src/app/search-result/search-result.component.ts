@@ -21,7 +21,7 @@ export class SearchResultComponent implements OnInit {
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
-  private searchText="";
+  searchText="";
   newSearch="";
 
   articlesSubject = new Subject<string>();
@@ -46,54 +46,10 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.searchText=this.route.snapshot.queryParams['search'];
-    this.articlePosts$.pipe(map((data: ArticlesType[]) => {
-            console.log(data);
-      }));
-    this.articles_dataSource = new MatTableDataSource<Observable<ArticlesType[]>>();
-
-    //   this.http.get<DefectsType[]>('http://127.0.0.1:5000/getDefects?msg='+this.searchText, {
-    //   headers: new HttpHeaders({
-    //     'Access-Control-Allow-Origin':'*',
-    //     'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type,Accept, Authortization',
-    //     'Acces-Control-Allow-Methods':'GET, POST, PATCH, DELETE'
-    //   })
-    // })
-    //   .pipe(
-    //     map((data: DefectsType[]) => {
-    //       return data;
-    //     }), catchError(error => {
-    //       return throwError('Something went wrong!');
-    //     })
-    //   )
-    //   .subscribe((data2: any) => {
-    //     let json = JSON.parse(data2);
-    //     this.defects.setDefects = json;
-    //     this.defects_array=this.defects.defect_arr;
-    //     this.defects_json=JSON.stringify(this.defects_array);
-    //     console.log(this.defects.defect_arr);
-    //   })
-
-    //   this.http.get<CasesType[]>('http://127.0.0.1:5000/getCases?msg='+this.searchText, {
-    //   headers: new HttpHeaders({
-    //     'Access-Control-Allow-Origin':'*',
-    //     'Access-Control-Allow-Headers':'Origin, X-Requested-With, Content-Type,Accept, Authortization',
-    //     'Acces-Control-Allow-Methods':'GET, POST, PATCH, DELETE'
-    //   })
-    // })
-    //   .pipe(
-    //     map((data: CasesType[]) => {
-    //       return data;
-    //     }), catchError(error => {
-    //       return throwError('Something went wrong!');
-    //     })
-    //   )
-    //   .subscribe((data2: any) => {
-    //     let json = JSON.parse(data2);
-    //     this.cases.cases = json;
-    //     this.cases_array=this.cases.cases_arr;
-    //     this.cases_json=JSON.stringify(this.cases_array);
-    //     console.log(this.cases.cases_arr);
-    //   })
+    // this.articlePosts$.pipe(map((data: ArticlesType[]) => {
+    //         console.log(data);
+    //   }));
+    // this.articles_dataSource = new MatTableDataSource<Observable<ArticlesType[]>>();
   }
 
   openClick(): void {
@@ -105,9 +61,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   searchPosts(searchText: string) {
-    this.articlesSubject.next(searchText);
-
-    // this.articles_json=JSON.stringify(this.articlesSubject);
+    this.searchText=searchText;
+    this.service.setarticlesSubject=searchText;
+    this.service.setcasesSubject=searchText;
+    this.service.setdefectsSubject=searchText;
   }
 
   open(urlToOpen: string) {
@@ -119,5 +76,4 @@ export class SearchResultComponent implements OnInit {
     url += urlToOpen;
     window.open(url, '_blank');
   }
-
 }
