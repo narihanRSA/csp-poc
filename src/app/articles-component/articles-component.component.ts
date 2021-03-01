@@ -23,15 +23,28 @@ export class ArticlesComponentComponent implements AfterViewInit {
   public width: string = '290px';
   articles=new ArticlesResults();
   dataSource = new MatTableDataSource<ArticlesType>(this.articles.articles);
+  searchText="";
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service:BlogService) {}
+  constructor(private service:BlogService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.searchText=this.route.snapshot.queryParams['search'];
+    this.service.fetchPosts(this.searchText).pipe( map((data: ArticlesType[]) => {
+      console.log(data);
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<ArticlesType>(json);
+    });
+
     this.service.getarticlesSubject.pipe(
       liveSearch(searchText =>
         this.service.fetchPosts(searchText).pipe( map((data: ArticlesType[]) => {

@@ -4,10 +4,10 @@
 
 <div id='container'>
   <mat-toolbar class="example-header">
-    <div id="left">
+    <!-- <div id="left">
       <span id="hamburger" class="e-icons menu default" (click)="openClick()"></span>
-    </div>
-    <img  routerLink="/" src="../assets/rsa-logo.png" width="80px" style="padding-left:40px;">
+    </div> -->
+    <img routerLink="/" src="../assets/rsa-logo.png" width="80px" style="padding-left:0px;">
     <span class="example-spacer"></span>
     <form style="text-align:center;font-size: 15px;padding-top:15px;">
       <mat-form-field appearance="legacy">
@@ -34,45 +34,11 @@
   </mat-toolbar>
 
   <div id="wrapper" style="padding-top:5em;">
-    <!--Sidebar element declaration -->
-    <ejs-sidebar id="default-sidebar" #sidebar [width]='width'
-      style="visibility: hidden;margin-top: 6em;border-right:2px solid whitesmoke">
-      <div class="sidebar-header header-cover">
-        <div style="padding: 0 0 5px 0;">
-          <h3 class="section-subheading text-muted">Searching for <br> {{searchText}}</h3>
-        </div>
-      </div>
-
-      <!-- Sidebar navigation -->
-      <ul class="nav sidebar-nav">
-        <li>
-          <a routerLink="articles" (click)="openClick()">
-            <i class="sf-icon-sidebar sf-icon-file"></i>
-            <span class="e-text"> Articles</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="cases" (click)="openClick()">
-            <i class="sf-icon-sidebar sf-icon-starred"></i>
-            <span class="e-text"> Cases</span>
-          </a>
-        </li>
-        <li>
-          <a routerLink="defects" (click)="openClick()">
-            <i class="sf-icon-sidebar sf-icon-recent"></i>
-            <span class="e-text">Defects</span>
-          </a>
-        </li>
-      </ul>
-    </ejs-sidebar>
-    <!-- main content declaration -->
-    <section>
-      <app-articles-component></app-articles-component>
-      <app-cases-component></app-cases-component>
-      <app-defects-component></app-defects-component>
-      <!-- <router-outlet></router-outlet> -->
-    </section>
-    <!--end of main content declaration -->
+    <app-articles-component></app-articles-component>
+    <br>
+    <app-cases-component></app-cases-component>
+    <br>
+    <app-defects-component></app-defects-component>
   </div>
 
 </div>

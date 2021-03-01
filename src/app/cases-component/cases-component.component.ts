@@ -57,9 +57,21 @@ export class CasesComponentComponent implements AfterViewInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service:BlogService) {}
+  constructor(private service:BlogService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.searchText=this.route.snapshot.queryParams['search'];
+    this.service.fetchCases(this.searchText).pipe( map((data: CasesType[]) => {
+      console.log(data);
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<CasesType>(json);
+    });
+
     console.log("here");
     this.service.getcasesSubject.pipe(
       liveSearch(searchText =>

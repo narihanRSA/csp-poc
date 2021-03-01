@@ -58,9 +58,20 @@ export class DefectsComponentComponent implements AfterViewInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service:BlogService) {}
+  constructor(private service:BlogService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.searchText=this.route.snapshot.queryParams['search'];
+    this.service.fetchDefects(this.searchText).pipe( map((data: DefectsType[]) => {
+      console.log(data);
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
+      let json = JSON.parse(value);
+      this.dataSource = new MatTableDataSource<DefectsType>(json);
+    });
     console.log("here");
     this.service.getdefectsSubject.pipe(
       liveSearch(searchText =>
@@ -73,6 +84,7 @@ export class DefectsComponentComponent implements AfterViewInit {
       )
     )
     .subscribe((value:any) =>{
+      console.log("$$$$$$$$$$", value);
       let json = JSON.parse(value);
       this.dataSource = new MatTableDataSource<DefectsType>(json);
     })

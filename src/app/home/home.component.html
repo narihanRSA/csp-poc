@@ -8,7 +8,7 @@ left: 40%;">
 <div id="cover">
   <form method="get" action="">
     <form class="tb">
-      <div class="td"><input [(ngModel)]="searchText" name="searchText" type="text" placeholder="Search" required></div>
+      <div class="td"><input [(ngModel)]="searchText" (input)="searchPosts($any($event.target).value)" name="searchText" type="text" placeholder="Search" required></div>
       <div class="td" id="s-cover">
         <button type="submit" (click)="navigate('search')">
           <div id="s-circle"></div>
