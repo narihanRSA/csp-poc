@@ -45,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class CasesComponentComponent implements AfterViewInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['position', 'article_number', 'title', 'status'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   cases=new CasesResults();
   dataSource = new MatTableDataSource<CasesType>(this.cases.cases);

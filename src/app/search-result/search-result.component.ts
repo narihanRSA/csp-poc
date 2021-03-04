@@ -49,11 +49,7 @@ export class SearchResultComponent implements OnInit {
     this.service.setarticlesSubject=this.searchText;
     this.service.setcasesSubject=this.searchText;
     this.service.setdefectsSubject=this.searchText;
-    // this.articlePosts$.pipe(map((data: ArticlesType[]) => {
-    //         console.log(data);
-    //   }));
-    // this.articles_dataSource = new MatTableDataSource<Observable<ArticlesType[]>>();
-  }
+   }
 
   openClick(): void {
    this.sidebar.toggle();

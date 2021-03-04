@@ -22,6 +22,7 @@ export class ArticlesResults {
 export interface CasesType{
   CaseNumber: number;
   Subject: string;
+  Status: string;
 }
 
 export class CasesResults {
@@ -40,6 +41,7 @@ export class CasesResults {
 export interface DefectsType{
   Id: number;
   TITLE__c: string;
+  STATE__c: string;
 }
 
 export class DefectsResults {

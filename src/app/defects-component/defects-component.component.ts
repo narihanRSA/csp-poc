@@ -45,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DefectsComponentComponent implements AfterViewInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['position', 'article_number', 'title', 'status'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   defects=new DefectsResults();
   dataSource = new MatTableDataSource<DefectsType>(this.defects.defect_arr);

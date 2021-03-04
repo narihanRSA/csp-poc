@@ -1,14 +1,21 @@
 <div>
 <div style="position: absolute;
 top: 20%;
-left: 40%;">
+left: 42.5%;">
   <img src="../assets/rsa-logo.png" width="200px">
 </div>
 
+<h1 style="color:#bd2323;position: absolute;
+top: 37%;
+left: 35%;">Customer Support Automated Assistant</h1>
+
 <div id="cover">
-  <form method="get" action="">
-    <form class="tb">
-      <div class="td"><input [(ngModel)]="searchText" (input)="searchPosts($any($event.target).value)" name="searchText" type="text" placeholder="Search" required></div>
+  <form method="get" action="" autocomplete="off">
+    <form class="tb" autocomplete="off">
+      <div class="td">
+        <input [(ngModel)]="searchText"
+        (input)="searchPosts($any($event.target).value)"
+        name="searchText" type="text" placeholder="Search" required></div>
       <div class="td" id="s-cover">
         <button type="submit" (click)="navigate('search')">
           <div id="s-circle"></div>
