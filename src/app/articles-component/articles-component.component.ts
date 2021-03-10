@@ -21,25 +21,26 @@ export class ArticlesComponentComponent implements AfterViewInit {
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
-  articles=new ArticlesResults();
+  articles = new ArticlesResults();
   dataSource = new MatTableDataSource<ArticlesType>(this.articles.articles);
-  searchText="";
+  searchText = "";
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service:BlogService, private route: ActivatedRoute) {}
+  constructor(private service: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.searchText=this.route.snapshot.queryParams['search'];
-    this.service.fetchPosts(this.searchText).pipe( map((data: ArticlesType[]) => {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.searchText = this.route.snapshot.queryParams['search'];
+    this.service.fetchPosts(this.searchText).pipe(map((data: ArticlesType[]) => {
       console.log(data);
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
-    })).subscribe((value:any) =>{
+    })).subscribe((value: any) => {
       console.log("$$$$$$$$$$", value);
       let json = JSON.parse(value);
       this.dataSource = new MatTableDataSource<ArticlesType>(json);
@@ -47,7 +48,7 @@ export class ArticlesComponentComponent implements AfterViewInit {
 
     this.service.getarticlesSubject.pipe(
       liveSearch(searchText =>
-        this.service.fetchPosts(searchText).pipe( map((data: ArticlesType[]) => {
+        this.service.fetchPosts(searchText).pipe(map((data: ArticlesType[]) => {
           console.log(data);
           return data;
         }), catchError(error => {
@@ -55,18 +56,18 @@ export class ArticlesComponentComponent implements AfterViewInit {
         }))
       )
     )
-    .subscribe((value:any) =>{
-      console.log("$$$$$$$$$$", value);
-      let json = JSON.parse(value);
-      this.dataSource = new MatTableDataSource<ArticlesType>(json);
-    })
+      .subscribe((value: any) => {
+        console.log("$$$$$$$$$$", value);
+        let json = JSON.parse(value);
+        this.dataSource = new MatTableDataSource<ArticlesType>(json);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+      })
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.service.getarticlesSubject.pipe(
       liveSearch(searchText =>
-        this.service.fetchPosts(searchText).pipe( map((data: ArticlesType[]) => {
+        this.service.fetchPosts(searchText).pipe(map((data: ArticlesType[]) => {
           console.log(data);
           return data;
         }), catchError(error => {
@@ -74,18 +75,19 @@ export class ArticlesComponentComponent implements AfterViewInit {
         }))
       )
     )
-    .subscribe((value:any) =>{
-      console.log("$$$$$$$$$$", value);
-      let json = JSON.parse(value);
-      this.dataSource = new MatTableDataSource<ArticlesType>(json);
-    })
+      .subscribe((value: any) => {
+        console.log("$$$$$$$$$$", value);
+        let json = JSON.parse(value);
+        this.dataSource = new MatTableDataSource<ArticlesType>(json);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+      })
   }
 
   openClick(): void {
     this.sidebar.toggle();
   }
 
-  onSidenavClose():void{
+  onSidenavClose(): void {
     this.sidebar.close();
   }
 

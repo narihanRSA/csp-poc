@@ -37,7 +37,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { ArticleNumber: 2222, Title: 'hi' },
   { ArticleNumber: 2222, Title: 'hi' },
   { ArticleNumber: 2222, Title: 'hi' },
- ];
+];
 @Component({
   selector: 'app-defects-component',
   templateUrl: './defects-component.component.html',
@@ -47,35 +47,37 @@ export class DefectsComponentComponent implements AfterViewInit {
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title', 'status'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
-  defects=new DefectsResults();
+  defects = new DefectsResults();
   dataSource = new MatTableDataSource<DefectsType>(this.defects.defect_arr);
-  searchText:string="";
-  newSearch:string="";
-  defects_array: DefectsType[]=[];
+  searchText: string = "";
+  newSearch: string = "";
+  defects_array: DefectsType[] = [];
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service:BlogService, private route: ActivatedRoute) {}
+  constructor(private service: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.searchText=this.route.snapshot.queryParams['search'];
-    this.service.fetchDefects(this.searchText).pipe( map((data: DefectsType[]) => {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    this.searchText = this.route.snapshot.queryParams['search'];
+    this.service.fetchDefects(this.searchText).pipe(map((data: DefectsType[]) => {
       console.log(data);
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
-    })).subscribe((value:any) =>{
+    })).subscribe((value: any) => {
       console.log("$$$$$$$$$$", value);
       let json = JSON.parse(value);
       this.dataSource = new MatTableDataSource<DefectsType>(json);
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
     console.log("here");
     this.service.getdefectsSubject.pipe(
       liveSearch(searchText =>
-        this.service.fetchDefects(searchText).pipe( map((data: DefectsType[]) => {
+        this.service.fetchDefects(searchText).pipe(map((data: DefectsType[]) => {
           console.log(data);
           return data;
         }), catchError(error => {
@@ -83,22 +85,19 @@ export class DefectsComponentComponent implements AfterViewInit {
         }))
       )
     )
-    .subscribe((value:any) =>{
-      console.log("$$$$$$$$$$", value);
-      let json = JSON.parse(value);
-      this.dataSource = new MatTableDataSource<DefectsType>(json);
-    })
+      .subscribe((value: any) => {
+        console.log("$$$$$$$$$$", value);
+        let json = JSON.parse(value);
+        this.dataSource = new MatTableDataSource<DefectsType>(json);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+      })
   }
 
   ngAfterViewInit() {
-    // this.route.queryParams.subscribe(params => {
-    //   const tempArr= params['arr'];
-    //   this.dataSource = new MatTableDataSource<DefectsType>(JSON.parse(tempArr));
-    // });
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.service.getdefectsSubject.pipe(
       liveSearch(searchText =>
-        this.service.fetchDefects(searchText).pipe( map((data: DefectsType[]) => {
+        this.service.fetchDefects(searchText).pipe(map((data: DefectsType[]) => {
           console.log(data);
           return data;
         }), catchError(error => {
@@ -106,17 +105,18 @@ export class DefectsComponentComponent implements AfterViewInit {
         }))
       )
     )
-    .subscribe((value:any) =>{
-      let json = JSON.parse(value);
-      this.dataSource = new MatTableDataSource<DefectsType>(json);
-    })
+      .subscribe((value: any) => {
+        let json = JSON.parse(value);
+        this.dataSource = new MatTableDataSource<DefectsType>(json);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+      })
   }
 
   openClick(): void {
     this.sidebar.toggle();
   }
 
-  onSidenavClose():void{
+  onSidenavClose(): void {
     this.sidebar.close();
   }
 
