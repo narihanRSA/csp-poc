@@ -19,7 +19,7 @@ export class ArticlesComponentComponent implements AfterViewInit {
 
   title = 'csp-poc';
   panelOpenState = false;
-  displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['article_number', 'title', 'details'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   articles = new ArticlesResults();
   dataSource = new MatTableDataSource<ArticlesType>(this.articles.articles);
@@ -91,8 +91,16 @@ export class ArticlesComponentComponent implements AfterViewInit {
     this.sidebar.close();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   public onCreated(args: any) {
     this.sidebar.element.style.visibility = '';
+  }
+
+  public redirectToDetails = (id: string) => {
   }
 
   open(urlToOpen: string) {

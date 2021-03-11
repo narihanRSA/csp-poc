@@ -21,8 +21,8 @@ export class SearchResultComponent implements OnInit {
   panelOpenState = false;
   displayedColumns: string[] = ['position', 'article_number', 'title'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
-  searchText="";
-  newSearch="";
+  searchText = "";
+  newSearch = "";
 
   articlesSubject = new Subject<string>();
   private casesSubject = new Subject<string>();
@@ -30,7 +30,7 @@ export class SearchResultComponent implements OnInit {
 
   articles_dataSource = new MatTableDataSource<Observable<ArticlesType[]>>();
 
-  readonly articlePosts$=this.articlesSubject.pipe(
+  readonly articlePosts$ = this.articlesSubject.pipe(
     liveSearch(searchText =>
       this.service.fetchPosts(searchText)
     )
@@ -42,17 +42,17 @@ export class SearchResultComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private service: BlogService) {}
+    private service: BlogService) { }
 
   ngOnInit() {
-    this.searchText=this.route.snapshot.queryParams['search'];
-    this.service.setarticlesSubject=this.searchText;
-    this.service.setcasesSubject=this.searchText;
-    this.service.setdefectsSubject=this.searchText;
-   }
+    this.searchText = this.route.snapshot.queryParams['search'];
+    this.service.setarticlesSubject = this.searchText;
+    this.service.setcasesSubject = this.searchText;
+    this.service.setdefectsSubject = this.searchText;
+  }
 
   openClick(): void {
-   this.sidebar.toggle();
+    this.sidebar.toggle();
   }
 
   public onCreated(args: any) {
@@ -60,10 +60,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   searchPosts(searchText: string) {
-    this.searchText=searchText;
-    this.service.setarticlesSubject=searchText;
-    this.service.setcasesSubject=searchText;
-    this.service.setdefectsSubject=searchText;
+    this.searchText = searchText;
+    this.service.setarticlesSubject = searchText;
+    this.service.setcasesSubject = searchText;
+    this.service.setdefectsSubject = searchText;
   }
 
   open(urlToOpen: string) {

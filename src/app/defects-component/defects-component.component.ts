@@ -45,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DefectsComponentComponent implements AfterViewInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['position', 'article_number', 'title', 'status'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['defect_number', 'title', 'status', 'details'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   defects = new DefectsResults();
   dataSource = new MatTableDataSource<DefectsType>(this.defects.defect_arr);
@@ -112,8 +112,16 @@ export class DefectsComponentComponent implements AfterViewInit {
       })
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openClick(): void {
     this.sidebar.toggle();
+  }
+
+  public redirectToDetails = (id: string) => {
   }
 
   onSidenavClose(): void {

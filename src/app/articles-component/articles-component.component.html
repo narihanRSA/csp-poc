@@ -1,8 +1,8 @@
 <section id="Articles">
   <div>
-    <div class="e-control e-listview e-list-template e-touch">
+    <div class="e-listview e-list-template">
       <mat-accordion>
-        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true"
+        <mat-expansion-panel style=" border-radius:0px;" [expanded]="true" (opened)="panelOpenState = true"
         (closed)="panelOpenState = false"
           class="articles_panel">
           <mat-expansion-panel-header>
@@ -11,13 +11,18 @@
               <label style="padding-left:3px;">Articles</label>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-divider [inset]="true"></mat-divider>
+          <mat-divider [inset]="false"></mat-divider>
+          <br>
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 29759" #input>
+          </mat-form-field>
           <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="position">
+            <!-- <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> No. </th>
               <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
-            </ng-container>
+            </ng-container> -->
 
             <ng-container matColumnDef="article_number">
               <th mat-header-cell *matHeaderCellDef> Article Number </th>
@@ -27,6 +32,15 @@
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef> Article Title </th>
               <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+              <th mat-header-cell *matHeaderCellDef> Details </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="black" (click)="redirectToDetails(element.ArticleNumber)">
+                    <mat-icon class="mat-18">launch</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

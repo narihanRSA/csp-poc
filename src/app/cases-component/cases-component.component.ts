@@ -45,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class CasesComponentComponent implements AfterViewInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['position', 'article_number', 'title', 'status'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['case_number', 'title', 'status', 'details'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   cases = new CasesResults();
   dataSource = new MatTableDataSource<CasesType>(this.cases.cases);
@@ -113,12 +113,20 @@ export class CasesComponentComponent implements AfterViewInit {
       })
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openClick(): void {
     this.sidebar.toggle();
   }
 
   onSidenavClose(): void {
     this.sidebar.close();
+  }
+
+  public redirectToDetails = (id: string) => {
   }
 
   public onCreated(args: any) {
