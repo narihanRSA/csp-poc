@@ -4,6 +4,7 @@ import { MatTableDataSource } from "@angular/material/table";
 export interface ArticlesType{
   ArticleNumber: number;
   Title: string;
+  CreatedDate:Date;
 }
 
 export class ArticlesResults {
@@ -23,6 +24,7 @@ export interface CasesType{
   CaseNumber: number;
   Subject: string;
   Status: string;
+  CreatedDate:Date;
 }
 
 export class CasesResults {
@@ -42,6 +44,7 @@ export interface DefectsType{
   Id: number;
   TITLE__c: string;
   STATE__c: string;
+  CreatedDate:Date;
 }
 
 export class DefectsResults {
