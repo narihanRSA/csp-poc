@@ -4,24 +4,17 @@
 
 <div id='container'>
   <mat-toolbar class="example-header">
-    <!-- <div id="left">
-      <span id="hamburger" class="e-icons menu default" (click)="openClick()"></span>
-    </div> -->
     <img routerLink="/" src="../assets/rsa-logo.png" width="80px" style="padding-left:0px;">
     <span class="example-spacer"></span>
-    <form style="text-align:center;font-size: 15px;padding-top:15px;" autocomplete="off">
-      <mat-form-field appearance="legacy" autocomplete="off">
-        <mat-label>Search</mat-label>
-        <input matInput
-        [(ngModel)]="newSearch"
-        name="newSearch"
-        placeholder="Enter Error Message Here"
-        (input)="searchPosts($any($event.target).value)">
-        <mat-hint></mat-hint>
+    <form style="text-align:center;font-size: 12px;margin-top:15px;" autocomplete="off">
+      <mat-form-field appearance="outline" autocomplete="off">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput [(ngModel)]="newSearch" name="newSearch" placeholder="Enter Error Message Here"
+          (input)="searchPosts($any($event.target).value)">
+          <button mat-button *ngIf="newSearch" matSuffix mat-icon-button aria-label="Clear" (click)="newSearch=''">
+            <mat-icon>close</mat-icon>
+          </button>
       </mat-form-field>
-      <!-- <button mat-icon-button type="submit" (click)="search()" aria-label="Example icon button with a open in new tab icon">
-        <mat-icon>search</mat-icon>
-      </button> -->
     </form>
     <span class="icon-spacer"></span>
     <i class="material-icons profile-icon">list</i>
@@ -33,12 +26,13 @@
     <i class="material-icons profile-icon">account_circle</i>
   </mat-toolbar>
 
-  <div id="wrapper" style="padding-top:5em;">
+  <div id="wrapper" style="padding-top:3em;">
     <app-articles-component></app-articles-component>
     <br>
     <app-cases-component></app-cases-component>
     <br>
     <app-defects-component></app-defects-component>
+    <br>
   </div>
 
 </div>
