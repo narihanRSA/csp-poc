@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-import { ArticlesType, CasesType, DefectsType } from './search.modal';
-import { ActivatedRoute } from '@angular/router';
+import { ArticleDetails, ArticlesType, CaseDetails, CasesType, DefectsType } from './search.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +38,8 @@ export class BlogService {
     this.defectsSubject.next(value);
   }
 
-  fetchPosts(id: string): Observable<ArticlesType[]> {
-    // console.log("FETCHING");
-    return this.http.get<ArticlesType[]>(`${this.apiUrl}/getArticles?msg=${id}`, {
+  fetchPosts(searchMsg: string): Observable<ArticlesType[]> {
+    return this.http.get<ArticlesType[]>(`${this.apiUrl}/getArticles?msg=${searchMsg}`, {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
@@ -56,8 +53,23 @@ export class BlogService {
     );
   }
 
-  fetchCases(id: string): Observable<CasesType[]> {
-    return this.http.get<CasesType[]>(`${this.apiUrl}/getCases?msg=${id}`, {
+  fetchArticle(id: string): Observable<ArticleDetails[]> {
+    return this.http.get<ArticleDetails[]>(`${this.apiUrl}/getArticle?id=${id}`, {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
+        'Acces-Control-Allow-Methods': 'GET, POST, PATCH, DELETE'
+      })
+    }).pipe(
+      map((data: ArticleDetails[]) => {
+        return data;
+      }),
+      catchError(err => of([]))
+    );
+  }
+
+  fetchCases(searchMsg: string): Observable<CasesType[]> {
+    return this.http.get<CasesType[]>(`${this.apiUrl}/getCases?msg=${searchMsg}`, {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
@@ -71,8 +83,23 @@ export class BlogService {
     );
   }
 
-  fetchDefects(id: string): Observable<DefectsType[]> {
-    return this.http.get<DefectsType[]>(`${this.apiUrl}/getDefects?msg=${id}`, {
+  fetchCase(id: string): Observable<CaseDetails[]> {
+    return this.http.get<CaseDetails[]>(`${this.apiUrl}/getCase?id=${id}`, {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
+        'Acces-Control-Allow-Methods': 'GET, POST, PATCH, DELETE'
+      })
+    }).pipe(
+      map((data: CaseDetails[]) => {
+        return data;
+      }),
+      catchError(err => of([]))
+    );
+  }
+
+  fetchDefects(searchMsg: string): Observable<DefectsType[]> {
+    return this.http.get<DefectsType[]>(`${this.apiUrl}/getDefects?msg=${searchMsg}`, {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',

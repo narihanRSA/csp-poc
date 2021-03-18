@@ -2,7 +2,7 @@ import { AfterContentChecked, AfterViewInit, Component, OnInit, ViewChild } from
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ArticlesResults, ArticlesType } from '../search.modal';
+import { ArticlesResults, ArticlesType, DetailType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
@@ -48,7 +48,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private service: BlogService, private route: ActivatedRoute) {
+  constructor(private router: Router, private service: BlogService, private route: ActivatedRoute) {
     this.pipe = new DatePipe('en');
     this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate);
     this.dataSource.filterPredicate = (data, filter) => {
@@ -109,9 +109,6 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  openClick(): void {
-    this.sidebar.toggle();
-  }
 
   applyDateFilter() {
     this.service.fetchPosts(this.searchText).pipe(map((data: ArticlesType[]) => {
@@ -133,10 +130,6 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onSidenavClose(): void {
-    this.sidebar.close();
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -147,6 +140,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
+    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Article}, skipLocationChange: true});
   }
 
   open(urlToOpen: string) {

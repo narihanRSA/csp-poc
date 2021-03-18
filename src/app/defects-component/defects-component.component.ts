@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DefectsResults, DefectsType } from '../search.modal';
+import { DefectsResults, DefectsType, DetailType } from '../search.modal';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
@@ -69,7 +69,7 @@ export class DefectsComponentComponent implements OnInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private service: BlogService, private route: ActivatedRoute) {
+  constructor(private router: Router, private service: BlogService, private route: ActivatedRoute) {
     this.pipe = new DatePipe('en');
     this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate);
     this.dataSource.filterPredicate = (data, filter) => {
@@ -138,6 +138,7 @@ export class DefectsComponentComponent implements OnInit {
   }
 
   public redirectToDetails = (id: string) => {
+    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Defect}, skipLocationChange: true});
   }
 
   onSidenavClose(): void {

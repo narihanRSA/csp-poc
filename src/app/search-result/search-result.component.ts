@@ -24,18 +24,6 @@ export class SearchResultComponent implements OnInit {
   searchText = "";
   newSearch = "";
 
-  articlesSubject = new Subject<string>();
-  private casesSubject = new Subject<string>();
-  private defectsSubject = new Subject<string>();
-
-  articles_dataSource = new MatTableDataSource<Observable<ArticlesType[]>>();
-
-  readonly articlePosts$ = this.articlesSubject.pipe(
-    liveSearch(searchText =>
-      this.service.fetchPosts(searchText)
-    )
-  );
-
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
@@ -49,10 +37,6 @@ export class SearchResultComponent implements OnInit {
     this.service.setarticlesSubject = this.searchText;
     this.service.setcasesSubject = this.searchText;
     this.service.setdefectsSubject = this.searchText;
-  }
-
-  openClick(): void {
-    this.sidebar.toggle();
   }
 
   public onCreated(args: any) {

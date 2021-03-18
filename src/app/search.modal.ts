@@ -1,6 +1,12 @@
 
 import { MatTableDataSource } from "@angular/material/table";
 
+export enum DetailType{
+  Article='Article',
+  Case='Case',
+  Defect='Defect'
+}
+
 export interface ArticlesType{
   ArticleNumber: number;
   Title: string;
@@ -41,7 +47,7 @@ export class CasesResults {
 }
 
 export interface DefectsType{
-  Id: number;
+  Id: string;
   TITLE__c: string;
   STATE__c: string;
   CreatedDate:Date;
@@ -58,5 +64,54 @@ export class DefectsResults {
     this.defects_datasource=new MatTableDataSource<DefectsType>(value);
     this.defect_arr = value;
   }
+}
+
+export interface CaseDetails{
+  Id:number,
+  IsDeleted:boolean,
+  CaseNumber:number,
+  ContactId:string,
+  AccountId:string,
+  Status:string,
+  Origin:string,
+  Subject:string,
+  Priority:string,
+  Description:string,
+  IsClosed:boolean,
+  ClosedDate:Date,
+  IsEscalated:boolean,
+  CurrencyIsoCode: string,
+  CreatedDate:Date,
+  Account_Country__c:string,
+  Record_Type__c:string,
+  Action_Owner__c:string,
+  Case_Age__c:string,
+  Current_Action_Owner__c:string,
+  Current_Status__c:string,
+  Entitlement_Start_Created_Date__c:Date,
+  Entitlement_Status__c:string,
+  Escalation_Required__c:boolean,
+  Implementation_Status__c:string,
+  Initial_Severity__c:string,
+  Milestone_Status_Reporting__c:string,
+  Pref_Communication__c:string,
+  Preferred_Language__c:string,
+  RSA_Product_Set__c:string,
+  Supporting_Information__c:string,
+  case_summary__c:string
+}
+
+export interface ArticleDetails{
+  ArticleNumber:number,
+  Product_Details__c:string,
+  ArticleCaseAttachCount:string,
+  ArticleType:string,
+  Cause__c:string,
+  CreatedDate:Date,
+  IsLatestVersion:boolean,
+  Issue__c:string,
+  Summary:string,
+  Title:string,
+  Body:string
 }
 

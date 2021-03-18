@@ -24,6 +24,7 @@ import { CasesComponentComponent } from './cases-component/cases-component.compo
 import { DefectsComponentComponent } from './defects-component/defects-component.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DetailsComponentComponent } from './details-component/details-component.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SearchResultComponent,
     ArticlesComponentComponent,
     CasesComponentComponent,
-    DefectsComponentComponent
+    DefectsComponentComponent,
+    DetailsComponentComponent
   ],
   imports: [
     SidebarModule,
