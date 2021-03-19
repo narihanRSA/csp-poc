@@ -1,12 +1,14 @@
 <div>
   <div>
     <mat-toolbar class="example-header">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 30px;">arrow_back</mat-icon>
       <!-- <p style="font-size: 15px;
       margin-top:2.5%;
       color:rgb(189, 35, 35);">Back</p> -->
       <!-- <span class="example-spacer"></span> -->
-      <img routerLink="/" src="../assets/rsa-logo.png" width="80px" style="padding-left:10px;margin-top:5px;">
+      <button mat-button (click)="back()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 30px;">arrow_back</mat-icon>
+        <img src="../assets/rsa-logo.png" width="80px" style="padding-left:10px;margin-top:5px;">
+      </button>
       <span class="icon-spacer"></span>
       <i class="material-icons profile-icon">list</i>
       &nbsp;&nbsp;
@@ -28,8 +30,7 @@
 
       <mat-card-content class="dashboard-card-content">
         <mat-grid-list cols="4" rowHeight="1:1">
-          <mat-grid-tile colspan="2" *ngFor="let column of displayedColumns;" rowspan="1"  class="script-menu"
-          style="padding:0px;
+          <mat-grid-tile colspan="2" *ngFor="let column of displayedColumns;" rowspan="1" class="script-menu" style="padding:0px;
           margin:0px;">
             <mat-card class="dashboard-card">
               <mat-card-header style="text-align:center;display: inline;font-size: small;">

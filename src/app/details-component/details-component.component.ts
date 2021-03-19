@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Data } from '@syncfusion/ej2-angular-grids';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -20,12 +20,14 @@ export class DetailsComponentComponent implements OnInit {
   data: any[] = [];
   displayedColumns: string[] = [];
   dictionary:string[]=[];
+  searchText:string='';
 
-  constructor(private route: ActivatedRoute, private service: BlogService, private router: ActivatedRoute) { }
+  constructor(private router: Router, private service: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.queryParams['id'];
     this.type = this.route.snapshot.queryParams['type'];
+    this.searchText=this.route.snapshot.queryParams['search'];
     switch (this.type) {
       case DetailType.Article: this.populateArticle(); break;
       case DetailType.Case: this.populateCase(); break;
@@ -140,5 +142,10 @@ export class DetailsComponentComponent implements OnInit {
       //   RSA_Product_Set__c:"string",
       //   Supporting_Information__c:"string",
       //   case_summary__c:"string"}]
+  }
+
+  back():void{
+    console.log("DETAILS:  "+this.searchText);
+    this.router.navigate(['search'],{queryParams: { search:this.searchText}, skipLocationChange: true});
   }
 }
