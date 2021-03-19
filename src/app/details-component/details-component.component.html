@@ -27,7 +27,8 @@
         <mat-card-title style="color:brown">{{type}} Title</mat-card-title>
         <mat-card-subtitle style="color:#676767" *ngIf="data && data[0] && type === 'Article'">{{data[0].Title}}
         </mat-card-subtitle>
-        <mat-card-subtitle style="color:#676767" *ngIf="data && data[0] && type === 'Case'">{{data[0].Subject}}</mat-card-subtitle>
+        <mat-card-subtitle style="color:#676767" *ngIf="data && data[0] && type === 'Case'">{{data[0].Subject}}
+        </mat-card-subtitle>
       </mat-card-header>
       <mat-card-actions style="text-align: center;">
         <button mat-stroked-button>Open {{type}}</button>
@@ -42,7 +43,8 @@
                 <!-- <mat-card-subtitle style="font-size: 15px;">{{data[0][column]}}</mat-card-subtitle> -->
               </mat-card-header>
               <mat-card-content [style.overflow]="'auto'" [style.height.px]="'150'" class="dashboard-card-content">
-                <h4 *ngIf="isNotString(data[0][column]) || (data[0] && data[0][column] && data[0][column].length < 30)" style="color:#676767">{{data[0][column]}}</h4>
+                <h4 *ngIf="isNotString(data[0][column]) || (data[0] && data[0][column] && data[0][column].length < 30)"
+                  style="color:#676767">{{data[0][column]}}</h4>
                 <div *ngIf="data[0] && data[0][column] && data[0][column].length > 30">
                   <button mat-stroked-button (click)="open(content)">
                     Open {{column}}
@@ -60,7 +62,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <h4 >{{data[0][column]}}</h4>
+                      <h4>{{data[0][column]}}</h4>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
@@ -68,6 +70,11 @@
                       </button>
                     </div>
                   </ng-template>
+                </div>
+                <div *ngIf="!data[0] && !data[0][column]">
+                  <button mat-stroked-button disabled>
+                    Open {{column}}
+                  </button>
                 </div>
               </mat-card-content>
             </mat-card>
