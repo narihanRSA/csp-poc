@@ -35,9 +35,10 @@
       </mat-card-actions>
       <mat-card-content class="dashboard-card-content">
         <mat-grid-list cols="5" rowHeight="1:1">
-          <mat-grid-tile colspan="1" *ngFor="let column of displayedColumns;" rowspan="1" class="script-menu" style="padding:0px;
+          <div *ngFor="let column of displayedColumns;">
+            <mat-grid-tile colspan="1" *ngIf=" data && data[0] && data[0][column]" rowspan="1" class="script-menu"
+              style="padding:0px;
           margin:0px;">
-            <div *ngIf=" data && data[0] && data[0][column]">
               <mat-card class="dashboard-card mat-elevation-z8">
                 <mat-card-header style="text-align:center;display: inline;font-size: small;">
                   <mat-card-title style="font-size: 11px;color:brown">{{column}}</mat-card-title>
@@ -75,8 +76,8 @@
                   </div>
                 </mat-card-content>
               </mat-card>
-            </div>
-          </mat-grid-tile>
+            </mat-grid-tile>
+          </div>
         </mat-grid-list>
       </mat-card-content>
     </mat-card>
