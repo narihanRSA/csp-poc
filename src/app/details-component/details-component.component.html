@@ -19,76 +19,61 @@
       <i class="material-icons profile-icon">account_circle</i>
     </mat-toolbar>
   </div>
+
   <div>
     <!-- List -->
-    <mat-card class="dashboard-card">
+    <mat-card class="dashboard-card mat-elevation-z8" style="background-color: rgb(245 245 245);">
       <mat-card-header style="text-align:center;display: inline;">
-        <mat-card-title>{{type}} Title</mat-card-title>
-        <mat-card-subtitle *ngIf="data && type === 'Article'">{{data[0].Title}}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="data && type === 'Case'">{{data[0].Subject}}</mat-card-subtitle>
-        <mat-card-title>{{type}} Number</mat-card-title>
-        <mat-card-subtitle *ngIf="data && type === 'Article'">{{data[0].ArticleNumber}}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="data && type === 'Case'">{{data[0].CaseNumber}}</mat-card-subtitle>
+        <mat-card-title style="color:brown">{{type}} Title</mat-card-title>
+        <mat-card-subtitle style="color:#676767" *ngIf="data && type === 'Article'">{{data[0].Title}}
+        </mat-card-subtitle>
+        <mat-card-subtitle style="color:#676767" *ngIf="data && type === 'Case'">{{data[0].Subject}}</mat-card-subtitle>
       </mat-card-header>
-
+      <mat-card-actions style="text-align: center;">
+        <button mat-stroked-button>Open {{type}}</button>
+      </mat-card-actions>
       <mat-card-content class="dashboard-card-content">
-        <mat-grid-list cols="4" rowHeight="1:1">
-          <mat-grid-tile colspan="2" *ngFor="let column of displayedColumns;" rowspan="1" class="script-menu" style="padding:0px;
+        <mat-grid-list cols="5" rowHeight="1:1">
+          <mat-grid-tile colspan="1" *ngFor="let column of displayedColumns;" rowspan="1" class="script-menu" style="padding:0px;
           margin:0px;">
-            <mat-card class="dashboard-card">
+            <mat-card class="dashboard-card mat-elevation-z8">
               <mat-card-header style="text-align:center;display: inline;font-size: small;">
-                <mat-card-title style="font-size: 15px;">{{column}}</mat-card-title>
+                <mat-card-title style="font-size: 11px;color:brown">{{column}}</mat-card-title>
                 <!-- <mat-card-subtitle style="font-size: 15px;">{{data[0][column]}}</mat-card-subtitle> -->
               </mat-card-header>
               <mat-card-content [style.overflow]="'auto'" [style.height.px]="'150'" class="dashboard-card-content">
-                <p>{{data[0][column]}}</p>
+                <h4 *ngIf="isNotString(data[0][column]) || data[0][column].length < 30" style="color:#676767">{{data[0][column]}}</h4>
+                <div *ngIf="data[0][column].length > 30">
+                  <button mat-stroked-button (click)="open(content)">
+                    Open {{column}}
+                  </button>
+                  <ng-template #content let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">
+                        {{column}}
+                      </h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+                        <span aria-hidden="true">
+                          ×
+                        </span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h4 >{{data[0][column]}}</h4>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+                        Close
+                      </button>
+                    </div>
+                  </ng-template>
+                </div>
               </mat-card-content>
             </mat-card>
           </mat-grid-tile>
         </mat-grid-list>
       </mat-card-content>
-
-      <!-- <mat-card-content style="padding-bottom: 0px; height: 500px;">
-        <mat-grid-list cols="4" rowHeight="1:1" class="grid-layout-custom">
-          <mat-grid-tile style="height:500px" class="script-menu">
-            <div *ngFor="let column of displayedColumns.slice(0, ((displayedColumns.length)/2));">
-              <p style="text-align: right;">{{column}}</p>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="data && type === 'Article'" class="script-menu">
-            <p style="text-align: left;">{{data[0].Product_Details__c}}</p>
-            <p style="text-align: left;">{{data[0].ArticleCaseAttachCount}}</p>
-            <p style="text-align: left;">{{data[0].IsLatestVersion}}</p>
-            <p style="text-align: left;">{{data[0].ArticleType}}</p>
-            <p style="text-align: left;">{{data[0].Cause__c}}</p>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="data && type === 'Case'" class="script-menu">
-            <p style="text-align: left;">{{data[0].Status}}</p>
-            <p style="text-align: left;">{{data[0].Origin}}</p>
-            <p style="text-align: left;">{{data[0].Subject}}</p>
-            <p style="text-align: left;">{{data[0].Priority}}</p>
-            <p style="text-align: left;">{{data[0].Description}}</p>
-            <p style="text-align: left;">{{data[0].ClosedDate|date}}</p>
-            <p style="text-align: left;">{{data[0].IsEscalated}}</p>
-          </mat-grid-tile>
-          <mat-grid-tile style="height:500px" class="script-menu">
-            <div *ngFor="let column of displayedColumns.slice((displayedColumns.length)/2);">
-              <p style="text-align: right;">{{column}}</p>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="data && type === 'Article'" class="script-menu">
-            <p style="text-align: left;">{{data[0].CreatedDate | date}}</p>
-            <p style="text-align: left;">{{data[0].Issue__c}}</p>
-            <p style="text-align: left;">{{data[0].Summary}}</p>
-            <p style="text-align: left;">{{data[0].Title}}</p>
-            <p style="text-align: left;">{{data[0].Resolution__c}}</p>
-            <p style="text-align: left;">{{data[0].Notes__c}}</p>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </mat-card-content> -->
-      <mat-card-actions style="text-align: center;">
-        <button mat-button>OPEN</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </div>
