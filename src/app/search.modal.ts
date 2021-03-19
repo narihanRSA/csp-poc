@@ -47,7 +47,7 @@ export class CasesResults {
 }
 
 export interface DefectsType{
-  Id: string;
+  ID__c: string;
   TITLE__c: string;
   STATE__c: string;
   CreatedDate:Date;
