@@ -1,15 +1,91 @@
-<div class="e-listview e-list-template">
+<div>
+  <div>
+    <mat-toolbar class="example-header">
+      <!-- <p style="font-size: 15px;
+      margin-top:2.5%;
+      color:rgb(189, 35, 35);">Back</p> -->
+      <!-- <span class="example-spacer"></span> -->
+      <button mat-button (click)="back()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 30px;">arrow_back</mat-icon>
+        <img src="../assets/rsa-logo.png" width="80px" style="padding-left:10px;margin-top:5px;">
+      </button>
+      <span class="icon-spacer"></span>
+      <i class="material-icons profile-icon">list</i>
+      &nbsp;&nbsp;
+      <i class="material-icons profile-icon">help</i>
+      &nbsp;&nbsp;
+      <i class="material-icons profile-icon">settings</i>
+      &nbsp;&nbsp;
+      <i class="material-icons profile-icon">account_circle</i>
+    </mat-toolbar>
+  </div>
+  <div>
+    <!-- List -->
+    <mat-card class="dashboard-card">
+      <mat-card-header style="text-align:center;display: inline;">
+        <mat-card-title>{{type}} Number</mat-card-title>
+        <mat-card-subtitle *ngIf="data && type === 'Article'">{{data[0].ArticleNumber}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="data && type === 'Case'">{{data[0].CaseNumber}}</mat-card-subtitle>
+      </mat-card-header>
 
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
-      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-      </ng-container>
+      <mat-card-content class="dashboard-card-content">
+        <mat-grid-list cols="4" rowHeight="1:1">
+          <mat-grid-tile colspan="2" *ngFor="let column of displayedColumns;" rowspan="1" class="script-menu" style="padding:0px;
+          margin:0px;">
+            <mat-card class="dashboard-card">
+              <mat-card-header style="text-align:center;display: inline;font-size: small;">
+                <mat-card-title style="font-size: 15px;">{{column}}</mat-card-title>
+                <!-- <mat-card-subtitle style="font-size: 15px;">{{data[0][column]}}</mat-card-subtitle> -->
+              </mat-card-header>
+              <mat-card-content [style.overflow]="'auto'" [style.height.px]="'150'" class="dashboard-card-content">
+                <p>{{data[0][column]}}</p>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+      <!-- <mat-card-content style="padding-bottom: 0px; height: 500px;">
+        <mat-grid-list cols="4" rowHeight="1:1" class="grid-layout-custom">
+          <mat-grid-tile style="height:500px" class="script-menu">
+            <div *ngFor="let column of displayedColumns.slice(0, ((displayedColumns.length)/2));">
+              <p style="text-align: right;">{{column}}</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="data && type === 'Article'" class="script-menu">
+            <p style="text-align: left;">{{data[0].Product_Details__c}}</p>
+            <p style="text-align: left;">{{data[0].ArticleCaseAttachCount}}</p>
+            <p style="text-align: left;">{{data[0].IsLatestVersion}}</p>
+            <p style="text-align: left;">{{data[0].ArticleType}}</p>
+            <p style="text-align: left;">{{data[0].Cause__c}}</p>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="data && type === 'Case'" class="script-menu">
+            <p style="text-align: left;">{{data[0].Status}}</p>
+            <p style="text-align: left;">{{data[0].Origin}}</p>
+            <p style="text-align: left;">{{data[0].Subject}}</p>
+            <p style="text-align: left;">{{data[0].Priority}}</p>
+            <p style="text-align: left;">{{data[0].Description}}</p>
+            <p style="text-align: left;">{{data[0].ClosedDate|date}}</p>
+            <p style="text-align: left;">{{data[0].IsEscalated}}</p>
+          </mat-grid-tile>
+          <mat-grid-tile style="height:500px" class="script-menu">
+            <div *ngFor="let column of displayedColumns.slice((displayedColumns.length)/2);">
+              <p style="text-align: right;">{{column}}</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="data && type === 'Article'" class="script-menu">
+            <p style="text-align: left;">{{data[0].CreatedDate | date}}</p>
+            <p style="text-align: left;">{{data[0].Issue__c}}</p>
+            <p style="text-align: left;">{{data[0].Summary}}</p>
+            <p style="text-align: left;">{{data[0].Title}}</p>
+            <p style="text-align: left;">{{data[0].Resolution__c}}</p>
+            <p style="text-align: left;">{{data[0].Notes__c}}</p>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content> -->
+      <mat-card-actions style="text-align: center;">
+        <button mat-button>OPEN</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

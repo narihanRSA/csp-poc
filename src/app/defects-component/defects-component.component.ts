@@ -138,7 +138,7 @@ export class DefectsComponentComponent implements OnInit {
   }
 
   public redirectToDetails = (id: string) => {
-    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Defect}, skipLocationChange: true});
+    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Defect, search:this.searchText}, skipLocationChange: true});
   }
 
   onSidenavClose(): void {

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
 import { ArticleDetails, ArticlesType, CaseDetails, CasesType, DefectsType } from './search.modal';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'

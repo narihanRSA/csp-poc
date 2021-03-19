@@ -1,3 +1,51 @@
-table {
-  width: 100%;
+.example-spacer {
+  margin-left: 5%;
+}
+
+.icon-spacer {
+  flex: 1 1 auto;
+}
+
+
+.profile-icon {
+  font-size:25px;
+  color:rgb(189, 35, 35);
+  padding-top:15px;
+}
+
+.header{
+  text-align: center;
+  margin-top: 5%;
+}
+
+.back{
+  font-size: 15px;
+  margin-top:1.5%;
+  color:rgb(189, 35, 35);
+}
+
+.dashboard-card {
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  /* bottom: 15px; */
+}
+.dashboard-card-content {
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  max-height: 100%;
+  justify-content: left;
+  align-items: stretch;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.script-menu >::ng-deep .mat-figure{
+  display: block;
 }

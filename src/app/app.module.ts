@@ -24,6 +24,8 @@ import { CasesComponentComponent } from './cases-component/cases-component.compo
 import { DefectsComponentComponent } from './defects-component/defects-component.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponentComponent } from './details-component/details-component.component';
 
 @NgModule({
@@ -56,7 +58,9 @@ import { DetailsComponentComponent } from './details-component/details-component
     MatToolbarModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

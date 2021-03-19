@@ -64,7 +64,9 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
     }, 0);
+
     this.searchText = this.route.snapshot.queryParams['search'];
+    console.log("ARTICLES:  "+this.searchText);
     this.service.fetchPosts(this.searchText).pipe(map((data: ArticlesType[]) => {
       // console.log(data);
       return data;
@@ -140,7 +142,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Article}, skipLocationChange: true});
+    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Article, search:this.searchText}, skipLocationChange: true});
   }
 
   open(urlToOpen: string) {

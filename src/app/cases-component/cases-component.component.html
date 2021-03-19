@@ -18,7 +18,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 29759" #input>
           </mat-form-field>
 
-          <form [formGroup]="filterForm">
+          <form [formGroup]="filterForm" style="display: inline-flex;margin-left:12.5%;">
             <mat-form-field>
               <input matInput
                 [matDatepicker]="fromDate"
