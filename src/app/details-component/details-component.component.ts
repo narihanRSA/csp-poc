@@ -56,7 +56,6 @@ export class DetailsComponentComponent implements OnInit {
       'CreatedDate',
       'Issue__c',
       'Summary',
-      'Title',
       'Resolution__c',
       'Notes__c']
 
@@ -91,7 +90,6 @@ export class DetailsComponentComponent implements OnInit {
     this.displayedColumns = [
       'Status',
       'Origin',
-      'Subject',
       'Priority',
       'Description',
       'ClosedDate',

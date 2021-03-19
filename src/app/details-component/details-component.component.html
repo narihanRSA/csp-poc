@@ -23,6 +23,9 @@
     <!-- List -->
     <mat-card class="dashboard-card">
       <mat-card-header style="text-align:center;display: inline;">
+        <mat-card-title>{{type}} Title</mat-card-title>
+        <mat-card-subtitle *ngIf="data && type === 'Article'">{{data[0].Title}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="data && type === 'Case'">{{data[0].Subject}}</mat-card-subtitle>
         <mat-card-title>{{type}} Number</mat-card-title>
         <mat-card-subtitle *ngIf="data && type === 'Article'">{{data[0].ArticleNumber}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="data && type === 'Case'">{{data[0].CaseNumber}}</mat-card-subtitle>
