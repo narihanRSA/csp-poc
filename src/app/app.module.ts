@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponentComponent } from './details-component/details-component.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DetailsComponentComponent } from './details-component/details-component
     ReactiveFormsModule,
     MatNativeDateModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -34,7 +34,6 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.searchText = this.route.snapshot.queryParams['search'];
-    console.log("SEARCH RESULT:  "+this.searchText);
     this.service.setarticlesSubject = this.searchText;
     this.service.setcasesSubject = this.searchText;
     this.service.setdefectsSubject = this.searchText;
