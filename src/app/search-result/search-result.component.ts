@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { liveSearch } from '../live-search.operator';
 import { BlogService } from '../search.service';
+import { ArticlesComponentComponent } from '../articles-component/articles-component.component';
 
 
 @Component({
@@ -23,6 +24,9 @@ export class SearchResultComponent implements OnInit {
   public width: string = '290px';
   searchText = "";
   newSearch = "";
+  public ifArticles: boolean = false;
+  public ifCases: boolean = false;
+  public ifDefects: boolean = false;
 
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
@@ -30,10 +34,16 @@ export class SearchResultComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private service: BlogService) { }
+    private service: BlogService) {
+  }
 
   ngOnInit() {
     this.searchText = this.route.snapshot.queryParams['search'];
+    setTimeout(() => {
+      this.ifArticles = (this.route.snapshot.queryParams['articles'].toLowerCase() == 'true');
+      this.ifCases = (this.route.snapshot.queryParams['cases'].toLowerCase() == 'true');
+      this.ifDefects = (this.route.snapshot.queryParams['defects'].toLowerCase() == 'true');
+    }, 0);
     this.service.setarticlesSubject = this.searchText;
     this.service.setcasesSubject = this.searchText;
     this.service.setdefectsSubject = this.searchText;
