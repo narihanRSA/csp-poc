@@ -4,7 +4,8 @@ import { MatTableDataSource } from "@angular/material/table";
 export enum DetailType{
   Article='Article',
   Case='Case',
-  Defect='Defect'
+  Defect='Defect',
+  All='All'
 }
 
 export interface ArticlesType{

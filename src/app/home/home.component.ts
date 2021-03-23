@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DetailType } from '../search.modal';
 import { BlogService } from '../search.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { BlogService } from '../search.service';
 })
 export class HomeComponent implements OnInit {
   searchText:string="";
+  article:boolean=false;
+  case:boolean=false;
+  defect:boolean=false;
   constructor(private router: Router, private route: ActivatedRoute, private service: BlogService) { }
 
   ngOnInit(): void {}
@@ -17,7 +21,8 @@ export class HomeComponent implements OnInit {
     this.service.setarticlesSubject=this.searchText;
     this.service.setcasesSubject=this.searchText;
     this.service.setdefectsSubject=this.searchText;
-    this.router.navigate([navlink],{queryParams: {search: this.searchText}, skipLocationChange: true});
+    this.router.navigate([navlink],{queryParams: {search: this.searchText, articles:this.article,
+    cases:this.case, defects:this.defect}, skipLocationChange: true});
   }
 
   searchPosts(searchText: string) {

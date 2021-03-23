@@ -11,9 +11,9 @@
         <mat-icon matPrefix>search</mat-icon>
         <input matInput [(ngModel)]="newSearch" name="newSearch" placeholder="Enter Error Message Here"
           (input)="searchPosts($any($event.target).value)">
-          <button mat-button *ngIf="newSearch" matSuffix mat-icon-button aria-label="Clear" (click)="newSearch=''">
-            <mat-icon>close</mat-icon>
-          </button>
+        <button mat-button *ngIf="newSearch" matSuffix mat-icon-button aria-label="Clear" (click)="newSearch=''">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
     </form>
     <span class="icon-spacer"></span>
@@ -27,11 +27,11 @@
   </mat-toolbar>
 
   <div id="wrapper" style="padding-top:3em;">
-    <app-articles-component></app-articles-component>
+    <app-articles-component *ngIf="ifArticles"></app-articles-component>
     <br>
-    <app-cases-component></app-cases-component>
+    <app-cases-component *ngIf="ifCases"></app-cases-component>
     <br>
-    <app-defects-component></app-defects-component>
+    <app-defects-component *ngIf="ifDefects"></app-defects-component>
     <br>
   </div>
 
