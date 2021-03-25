@@ -51,6 +51,7 @@ export class DetailsComponentComponent implements OnInit {
     })).subscribe((value: any) => {
       let json: ArticleDetails[] = JSON.parse(value);
       this.data = json;
+      console.log("articles: ",this.data);
     });
     this.displayedColumns = ['ArticleNumber',
       'Product_Details__c',
@@ -74,6 +75,7 @@ export class DetailsComponentComponent implements OnInit {
     })).subscribe((value: any) => {
       let json: CaseDetails[] = JSON.parse(value);
       this.data = json;
+      console.log("Cases: ",this.data);
     });
     this.displayedColumns = ['CaseNumber',
       'CreatedDate',
