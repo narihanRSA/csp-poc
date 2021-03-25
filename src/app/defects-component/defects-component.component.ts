@@ -84,7 +84,6 @@ export class DefectsComponentComponent implements OnInit {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.searchText = this.route.snapshot.queryParams['search'];
     this.service.fetchDefects(this.searchText).pipe(map((data: DefectsType[]) => {
-      // console.log(data);
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
@@ -111,7 +110,7 @@ export class DefectsComponentComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = (filterValue.trim())?.toLowerCase();
   }
 
   applyDateFilter() {
@@ -124,8 +123,6 @@ export class DefectsComponentComponent implements OnInit {
       json.forEach(e => { e.CreatedDate = new Date(e.CreatedDate);});
 
       this.dataSource = new MatTableDataSource<DefectsType>(json);
-      console.log(this.filterForm);
-      console.log(this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate));
       this.dataSource.data=this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate);
       setTimeout(() => {
         this.dataSource.paginator = this.paginator

@@ -83,12 +83,10 @@ export class CasesComponentComponent implements OnInit {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.searchText = this.route.snapshot.queryParams['search'];
     this.service.fetchCases(this.searchText).pipe(map((data: CasesType[]) => {
-      // console.log(data);
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-      // console.log("$$$$$$$$$$", value);
       let json = JSON.parse(value);
       this.dataSource = new MatTableDataSource<CasesType>(json);
       setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -97,7 +95,6 @@ export class CasesComponentComponent implements OnInit {
     this.service.getcasesSubject.pipe(
       liveSearch(searchText =>
         this.service.fetchCases(searchText).pipe(map((data: CasesType[]) => {
-          // console.log(data);
           return data;
         }), catchError(error => {
           return throwError('Something went wrong!');
@@ -113,7 +110,7 @@ export class CasesComponentComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = (filterValue.trim())?.toLowerCase();
   }
 
   openClick(): void {
@@ -134,8 +131,6 @@ export class CasesComponentComponent implements OnInit {
       json.forEach(e => { e.CreatedDate = new Date(e.CreatedDate);});
 
       this.dataSource = new MatTableDataSource<CasesType>(json);
-      console.log(this.filterForm);
-      console.log(this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate));
       this.dataSource.data=this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate);
       setTimeout(() => {
         this.dataSource.paginator = this.paginator
