@@ -66,16 +66,13 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
     }, 0);
 
     this.searchText = this.route.snapshot.queryParams['search'];
-    console.log("ARTICLES:  "+this.searchText);
     this.service.fetchPosts(this.searchText).pipe(map((data: ArticlesType[]) => {
-      // console.log(data);
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-      // console.log("$$$$$$$$$$", value);
       let json: ArticlesType[] = JSON.parse(value);
-      json.forEach(e => { e.CreatedDate = new Date(e.CreatedDate); console.log(e.CreatedDate) });
+      json.forEach(e => { e.CreatedDate = new Date(e.CreatedDate); });
 
       this.dataSource = new MatTableDataSource<ArticlesType>(json);
       setTimeout(() => {
@@ -87,14 +84,12 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
     this.service.getarticlesSubject.pipe(
       liveSearch(searchText =>
         this.service.fetchPosts(searchText).pipe(map((data: ArticlesType[]) => {
-          // console.log(data);
           return data;
         }), catchError(error => {
           return throwError('Something went wrong!');
         }))
       )
     ).subscribe((value: any) => {
-      // console.log("$$$$$$$$$$", value);
       let json = JSON.parse(value);
       this.dataSource = new MatTableDataSource<ArticlesType>(json);
       setTimeout(() => {
@@ -122,8 +117,6 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
       json.forEach(e => { e.CreatedDate = new Date(e.CreatedDate);});
 
       this.dataSource = new MatTableDataSource<ArticlesType>(json);
-      console.log(this.filterForm);
-      console.log(this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate));
       this.dataSource.data=this.dataSource.data.filter(e => e.CreatedDate > this.fromDate && e.CreatedDate < this.toDate);
       setTimeout(() => {
         this.dataSource.sort = this.sort
@@ -134,7 +127,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = (filterValue.trim())?.toLowerCase();
   }
 
   public onCreated(args: any) {
