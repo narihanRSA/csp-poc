@@ -21,8 +21,10 @@ export class HomeComponent implements OnInit {
     this.service.setarticlesSubject=this.searchText;
     this.service.setcasesSubject=this.searchText;
     this.service.setdefectsSubject=this.searchText;
-    this.router.navigate([navlink],{queryParams: {search: this.searchText, articles:this.article,
-    cases:this.case, defects:this.defect}, skipLocationChange: true});
+    this.service.ifArticles=this.article;
+    this.service.ifCases=this.case;
+    this.service.ifDefects=this.defect
+    this.router.navigate([navlink],{queryParams: {search: this.searchText}, skipLocationChange: true});
   }
 
   searchPosts(searchText: string) {

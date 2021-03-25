@@ -15,6 +15,33 @@ export class BlogService {
   defectsSubject = new Subject<string>();
   articlesSubject = new Subject<string>();
   casesSubject = new Subject<string>();
+  ifArticles: boolean = true;
+  ifCases: boolean = true;
+  ifDefects: boolean = true;
+
+  set setIfArticles(ifArticles: boolean){
+    this.ifArticles=ifArticles;
+  }
+
+  get getIfArticles(){
+    return this.ifArticles;
+  }
+
+  set setIfCases(ifCases: boolean){
+    this.ifCases=ifCases;
+  }
+
+  get getIfCases(){
+    return this.ifCases;
+  }
+
+  set setIfDefects(ifDefects: boolean){
+    this.ifDefects=ifDefects;
+  }
+
+  get getIfDefects(){
+    return this.ifDefects;
+  }
 
   get getarticlesSubject() {
     return this.articlesSubject.asObservable();

@@ -31,17 +31,16 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('sidebar')
   public sidebar!: SidebarComponent;
 
-  constructor(private router: Router,
-    private route: ActivatedRoute,
-    private http: HttpClient,
+  constructor( private route: ActivatedRoute,
     private service: BlogService) { }
 
   ngOnInit() {
     this.searchText = this.route.snapshot.queryParams['search'];
     setTimeout(() => {
-      this.ifArticles = (this.route.snapshot.queryParams['articles'].toLowerCase() == 'true');
-      this.ifCases = (this.route.snapshot.queryParams['cases'].toLowerCase() == 'true');
-      this.ifDefects = (this.route.snapshot.queryParams['defects'].toLowerCase() == 'true');
+      this.ifArticles = this.service.ifArticles;
+      this.ifCases = this.service.ifCases;
+      this.ifDefects = this.service.ifDefects;
+
       if (!this.ifArticles && !this.ifCases && !this.ifDefects) {
         this.ifArticles = true;
         this.ifCases = true;

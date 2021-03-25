@@ -24,7 +24,8 @@ export class DetailsComponentComponent implements OnInit {
   defect: boolean = false;
 
   constructor(private modalService: NgbModal,
-    private router: Router, private service: BlogService, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute,
+    private service:BlogService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.queryParams['id'];
@@ -33,11 +34,9 @@ export class DetailsComponentComponent implements OnInit {
     switch (this.type) {
       case DetailType.Article:
         this.populateArticle();
-        this.article = true;
         break;
       case DetailType.Case:
         this.populateCase();
-        this.case = true;
         break;
       default: break;
     }
@@ -91,7 +90,6 @@ export class DetailsComponentComponent implements OnInit {
       'IsEscalated',
       'CurrencyIsoCode',
       'Account_Country__c',
-      'Record_Type__c',
       'Action_Owner__c',
       'Case_Age__c',
       'Current_Action_Owner__c',
@@ -109,8 +107,7 @@ export class DetailsComponentComponent implements OnInit {
   back(): void {
     this.router.navigate(['search'], {
       queryParams: {
-        search: this.searchText, articles: this.article,
-        cases: this.case, defects: this.defect
+        search: this.searchText
       }, skipLocationChange: true
     });
   }

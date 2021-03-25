@@ -79,7 +79,6 @@ export interface CaseDetails{
   CurrencyIsoCode?: string,
   CreatedDate?:Date,
   Account_Country__c?:string,
-  Record_Type__c?:string,
   Action_Owner__c?:string,
   Case_Age__c?:string,
   Current_Action_Owner__c?:string,

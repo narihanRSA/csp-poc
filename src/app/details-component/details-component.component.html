@@ -1,10 +1,6 @@
 <div>
   <div>
     <mat-toolbar class="example-header">
-      <!-- <p style="font-size: 15px;
-      margin-top:2.5%;
-      color:rgb(189, 35, 35);">Back</p> -->
-      <!-- <span class="example-spacer"></span> -->
       <button mat-button (click)="back()">
         <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 30px;">arrow_back</mat-icon>
         <img src="../assets/rsa-logo.png" width="80px" style="padding-left:10px;margin-top:5px;">
@@ -36,13 +32,11 @@
       <mat-card-content class="dashboard-card-content">
         <mat-grid-list cols="5" rowHeight="1:1">
           <div *ngFor="let column of displayedColumns;">
-            <mat-grid-tile colspan="1" *ngIf="data && data[0] && data[0][column] && data[0][column].length > 0" rowspan="1" class="script-menu"
-              style="padding:0px;
-          margin:0px;">
+            <mat-grid-tile colspan="1" *ngIf="data && data[0] && data[0][column] && data[0][column].length > 2" rowspan="1" class="script-menu"
+              style="padding:0px; margin:0px;">
               <mat-card class="dashboard-card mat-elevation-z8">
                 <mat-card-header style="text-align:center;display: inline;font-size: small;">
                   <mat-card-title style="font-size: 11px;color:brown">{{column}}</mat-card-title>
-                  <!-- <mat-card-subtitle style="font-size: 15px;">{{data[0][column]}}</mat-card-subtitle> -->
                 </mat-card-header>
                 <mat-card-content [style.overflow]="'auto'" [style.height.px]="'150'" class="dashboard-card-content">
                   <h4
