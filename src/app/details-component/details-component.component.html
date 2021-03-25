@@ -36,7 +36,7 @@
       <mat-card-content class="dashboard-card-content">
         <mat-grid-list cols="5" rowHeight="1:1">
           <div *ngFor="let column of displayedColumns;">
-            <mat-grid-tile colspan="1" *ngIf="data && data[0] && data[0][column]" rowspan="1" class="script-menu"
+            <mat-grid-tile colspan="1" *ngIf="data && data[0] && data[0][column] && data[0][column].length > 0" rowspan="1" class="script-menu"
               style="padding:0px;
           margin:0px;">
               <mat-card class="dashboard-card mat-elevation-z8">
