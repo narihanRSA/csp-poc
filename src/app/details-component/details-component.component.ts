@@ -24,7 +24,7 @@ export class DetailsComponentComponent implements OnInit {
   defect: boolean = false;
 
   constructor(private modalService: NgbModal,
-    private router: Router, private service: BlogService, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.queryParams['id'];
@@ -33,26 +33,24 @@ export class DetailsComponentComponent implements OnInit {
     switch (this.type) {
       case DetailType.Article:
         this.populateArticle();
-        this.article = true;
         break;
       case DetailType.Case:
         this.populateCase();
-        this.case = true;
         break;
       default: break;
     }
   }
 
   populateArticle(): void {
-    this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
-      return data;
-    }), catchError(error => {
-      return throwError('Something went wrong!');
-    })).subscribe((value: any) => {
-      let json: ArticleDetails[] = JSON.parse(value);
-      this.data = json;
-      console.log("articles: ",this.data);
-    });
+    // this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
+    //   return data;
+    // }), catchError(error => {
+    //   return throwError('Something went wrong!');
+    // })).subscribe((value: any) => {
+    //   let json: ArticleDetails[] = JSON.parse(value);
+    //   this.data = json;
+    //   console.log("articles: ",this.data);
+    // });
     this.displayedColumns = ['ArticleNumber',
       'Product_Details__c',
       'Issue__c',
@@ -65,18 +63,33 @@ export class DetailsComponentComponent implements OnInit {
       'ArticleType',
       'Summary'
     ]
+
+    this.data = [{
+      ArticleNumber: 12,
+      Product_Details__c: "..",
+      ArticleCaseAttachCount: "string",
+      IsLatestVersion: true,
+      ArticleType: "string",
+      Cause__c: "string",
+      CreatedDate: new Date(),
+      Issue__c: "string",
+      Summary: "SUMMARY",
+      Title: "string",
+      Resolution__c: "string",
+      Notes__c: "So the differences between the two templates are quite major. In the first, each column is explicitly defined: column headers tied to a hard-coded string array in the component, the object declared each time, the object property-values hard-coded.The second example, however, reduces the code down to a single “container” definition in which we make use of *ngFor to iterate through an array of columns, which won’t be predefined in the component. We bind the matColumnDef to the current column (which is an object property), tell it to display the current column as a header, and to display the value of that property for the current object that’s been passed from the dataSource. We’re also setting the *matHeaderRowDef to the non-predefined columns.Ok, so now that we know how our template should look the question becomes how do we create the rows, columns, and dataSource dynamically at runtime. For that we’ll start at the beginning. Don’t worry there are lots of pictures 😄I wanted to give the user choices that would then reveal more choices, continually narrowing down the data they wanted to see. I handled that through using ngbDropdown menu, toggle, and item and *ngIf statements. So first we present options for types of object lists that can be selected."
+    }] as ArticleDetails[]
   }
 
   populateCase(): void {
-    this.service.fetchCase(this.id).pipe(map((data: CaseDetails[]) => {
-      return data;
-    }), catchError(error => {
-      return throwError('Something went wrong!');
-    })).subscribe((value: any) => {
-      let json: CaseDetails[] = JSON.parse(value);
-      this.data = json;
-      console.log("Cases: ",this.data);
-    });
+    // this.service.fetchCase(this.id).pipe(map((data: CaseDetails[]) => {
+    //   return data;
+    // }), catchError(error => {
+    //   return throwError('Something went wrong!');
+    // })).subscribe((value: any) => {
+    //   let json: CaseDetails[] = JSON.parse(value);
+    //   this.data = json;
+    //   console.log("Cases: ",this.data);
+    // });
     this.displayedColumns = ['CaseNumber',
       'CreatedDate',
       'RSA_Product_Set__c',
@@ -109,8 +122,7 @@ export class DetailsComponentComponent implements OnInit {
   back(): void {
     this.router.navigate(['search'], {
       queryParams: {
-        search: this.searchText, articles: this.article,
-        cases: this.case, defects: this.defect
+        search: this.searchText
       }, skipLocationChange: true
     });
   }
