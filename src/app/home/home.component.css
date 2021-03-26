@@ -41,17 +41,23 @@ input, button
 
 #cover
 {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 0; */
+    /* right: 0; */
+    text-align: center;
     width: 800px;
     padding: 35px;
-    margin: -70px auto 0 auto;
+    margin: 0 auto 0 auto;
     background-color: #bd2323;
     border-radius: 20px;
     box-shadow: 0 10px 40px #bd2323, 0 0 0 20px #ffffffeb;
     transform: scale(0.4);
+}
+
+.h1style{
+  color:#bd2323;
+  padding-top:2%;
 }
 
 form
@@ -121,12 +127,12 @@ button span:before, button span:after
     content: '';
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 17px;
     width: 45px;
     height: 15px;
     background-color: #fff;
     border-radius: 10px;
-    transform: rotateZ(0);
+    transform: rotateZ(-15deg);
     transition: 0.5s ease all;
 }
 
