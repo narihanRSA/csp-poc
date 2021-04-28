@@ -135,7 +135,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDetails = (id: string) => {
-    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Article, search:this.searchText}, skipLocationChange: true});
+    this.router.navigate(['articledetails'],{queryParams: {id: id, type:DetailType.Article, search:this.searchText}, skipLocationChange: true});
   }
 
   open(urlToOpen: string) {
