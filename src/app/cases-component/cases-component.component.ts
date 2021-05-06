@@ -143,7 +143,7 @@ export class CasesComponentComponent implements OnInit {
   }
 
   public redirectToDetails = (id: string) => {
-    this.router.navigate(['details'],{queryParams: {id: id, type:DetailType.Case, search:this.searchText}, skipLocationChange: true});
+    this.router.navigate(['casedetails'],{queryParams: {id: id, type:DetailType.Case, search:this.searchText}, skipLocationChange: true});
   }
 
   open(urlToOpen: string) {

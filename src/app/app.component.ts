@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SidebarComponent } from '@syncfusion/ej2-angular-navigations';
 
 @Component({

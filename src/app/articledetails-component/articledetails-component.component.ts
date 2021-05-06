@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ArticleDetails } from '../search.modal';
+import { ArticleDetails, AttachmentsResponse, AuthBody, DetailType } from '../search.modal';
 import { BlogService } from '../search.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class ArticledetailsComponentComponent implements OnInit {
   searchText: string = '';
   closeResult = '';
   id: string = '';
+  type:DetailType=DetailType.Article;
   data: any[] = [];
   displayedColumns: string[] = [];
   displayedColumnsAH: string[] =[
@@ -45,6 +46,7 @@ export class ArticledetailsComponentComponent implements OnInit {
   ngOnInit(): void {
     this.searchText = this.route.snapshot.queryParams['search'];
     this.id = this.route.snapshot.queryParams['id'];
+    this.type = this.route.snapshot.queryParams['type'];
     this.populateArticle();
     this.data = this.displayedColumns.map(x => this.formatInputRow(x));
     this.inputCol = ["0"].concat(

@@ -85,6 +85,7 @@ export interface CaseDetails{
   Current_Status__c?:string,
   Entitlement_Start_Created_Date__c?:Date,
   Entitlement_Status__c?:string,
+  Escalation_Required__c?:string,
   Implementation_Status__c?:string,
   Initial_Severity__c?:string,
   Milestone_Status_Reporting__c?:string,
@@ -108,5 +109,83 @@ export interface ArticleDetails{
   Title?:string,
   Resolution__c?:string,
   Notes__c?:string
+}
+
+export interface AuthBody{
+  access_token:string,
+  instance_url:string,
+  id:string,
+  token_type:string,
+  issued_at:string,
+  signature:string
+}
+
+export interface AttachmentsResponse{
+  totalSize:number,
+  done:boolean,
+  records:AttachmentRecordDetails[]
+}
+
+export interface AttachmentRecordDetails{
+  attributes:AttributesDetails,
+  Id:string,
+  Name:string,
+  ParentId:string,
+  Parent:{
+    attributes:AttributesDetails,
+    Type:string
+  }
+}
+
+export interface AttributesDetails{
+  type:string,
+  url:string
+}
+
+export interface AttachmentDetails{
+  attributes: AttributesDetails,
+  Id: string,
+  IsDeleted: boolean,
+  ParentId: string,
+  Name: string,
+  IsPrivate: boolean,
+  ContentType: string,
+  BodyLength: number,
+  Body: string,
+  OwnerId: string,
+  CreatedDate: Date,
+  CreatedById: string,
+  LastModifiedDate: Date,
+  LastModifiedById: string,
+  SystemModstamp: Date,
+  Description: string,
+  IsPartnerShared: boolean,
+  ConnectionReceivedId: string,
+  ConnectionSentId: string
+}
+
+export interface CaseArticle{
+  totalSize:number,
+  done:boolean,
+  records:CaseArticleDetails[]
+}
+
+export interface CaseArticleDetails{
+  attributes:AttributesDetails,
+  KnowledgeArticleId:string,
+  ArticleLanguage:string,
+  ArticleVersionNumber:number
+}
+
+export interface CaseStepsTaken{
+  totalSize:number,
+  done:boolean,
+  records:CaseArticleDetails[]
+}
+
+export interface CaseStepsTakenDetails{
+  attributes:AttributesDetails,
+  Id:string,
+  Steps_Taken__c:string
 }
 
