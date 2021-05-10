@@ -17,11 +17,10 @@ export class BlogService {
   ifCases: boolean = true;
   ifDefects: boolean = true;
   token: string = '';
-  attachmentsResponse: string[] = [];
 
   private environment = {
     salesforceAuthURL: 'https://rsasecurity.my.salesforce.com/services/oauth2/token',
-    salesforceattachmentsURL: 'https://rsasecurity.my.salesforce.com/services/data/v48.0/query',
+    salesforceURL: 'https://rsasecurity.my.salesforce.com/services/data/v48.0/query',
     salesforceattachmentDetailsURL: 'https://rsasecurity.my.salesforce.com/services/data/v48.0/sobjects/Attachment/',
     CLIENT_ID: '3MVG9VmVOCGHKYBTofxf.CwrnfolOWZ7Lk_TjmNkhFxluyqSfr4TYmvUO6b5oCG_gao6LZ1E_3KNGTe04qS9w',
     CLIENT_SECRET: 'C237797366EE9D93D4A9D4CD30E3EB4BA924E54F0314A576CFDF2BE798BA6100',
@@ -102,42 +101,69 @@ export class BlogService {
   }
 
   //Get all articles
-  // getSalesForceCaseArticle(id: string): any {
-  //   return this.getAccessTokenAPI().then((accessTokenResp: AuthBody) => {
-  //     this.setToken = accessTokenResp.access_token;
-  //     return this.getCaseArticleAPI(id);
-  //     //console.log("Token: ",this.getToken);
-  //   }).catch((err: any) => {
-  //     console.log(err);
-  //   });
-  // }
+  getSalesForceCaseArticles(id: string): Observable<CaseArticle> {
+    return this.getCaseArticlesAPI(id);
+  }
 
-  // private getCaseArticleAPI(id: string): any {
-  //   const headers = new HttpHeaders({
-  //     Authorization: 'Bearer ' + this.getToken
-  //   });
-  //   const options = { headers };
-  //   const query = "SELECT KnowledgeArticleId, ArticleLanguage, ArticleVersionNumber FROM CaseArticle WHERE CaseId='" + id + "'";
-  //   return this.http.get<Promise<CaseArticle>>(`${this.environment.salesforceattachmentsURL}?q=${query}`, options).toPromise();
-  // }
-
-  // getSalesForceCaseStepsTaken(id: string): any {
-  //   return this.getAccessTokenAPI().then((accessTokenResp: AuthBody) => {
-  //     this.setToken = accessTokenResp.access_token;
-  //     return this.getCaseStepsTakenAPI(id);
-  //     //console.log("Token: ",this.getToken);
-  //   }).catch((err: any) => {
-  //     console.log(err);
-  //   });
-  // }
-
-  private getCaseStepsTakenAPI(id: string): any {
+  private getCaseArticlesAPI(id: string): Observable<CaseArticle> {
+    this.getAccessTokenAPI().subscribe((accessTokenResp: AuthBody) => {
+      this.setToken = accessTokenResp.access_token;
+      localStorage.setItem ('token', accessTokenResp.access_token);
+    })
     const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + this.getToken
+      Authorization: 'Bearer '+localStorage.getItem('token')
     });
     const options = { headers };
     const query = "SELECT KnowledgeArticleId, ArticleLanguage, ArticleVersionNumber FROM CaseArticle WHERE CaseId='" + id + "'";
-    return this.http.get<Promise<CaseStepsTaken>>(`${this.environment.salesforceattachmentsURL}?q=${query}`, options).toPromise();
+    return this.http.get<CaseArticle>(`${this.environment.salesforceURL}?q=${query}`, options).pipe(
+      map((data: CaseArticle) => {
+        return data;
+      })
+    );
+  }
+
+  //Get Activity history
+  getSalesForceCaseActivityHistory(id: string): Observable<CaseArticle> {
+    return this.getCaseActivityHistoryAPI(id);
+  }
+
+  private getCaseActivityHistoryAPI(id: string): Observable<CaseArticle> {
+    this.getAccessTokenAPI().subscribe((accessTokenResp: AuthBody) => {
+      this.setToken = accessTokenResp.access_token;
+      localStorage.setItem ('token', accessTokenResp.access_token);
+    })
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer '+localStorage.getItem('token')
+    });
+    const options = { headers };
+    const query = "SELECT (SELECT Id, ActivityDate,ActivitySubtype, ActivityType, CallDurationInSeconds, Status, Priority, StartDateTime,Description, Subject FROM ActivityHistories ORDER BY ActivityDate DESC,LastModifiedDate DESC LIMIT 5) FROM Case where Id = '" + id + "'";
+    return this.http.get<CaseArticle>(`${this.environment.salesforceURL}?q=${query}`, options).pipe(
+      map((data: CaseArticle) => {
+        return data;
+      })
+    );
+  }
+
+  //Get Steps taken
+  getSalesForceCaseStepsTaken(id: string): Observable<CaseStepsTaken> {
+    return this.getCaseStepsTakenAPI(id);
+  }
+
+  private getCaseStepsTakenAPI(id: string): Observable<CaseStepsTaken> {
+    this.getAccessTokenAPI().subscribe((accessTokenResp: AuthBody) => {
+      this.setToken = accessTokenResp.access_token;
+      localStorage.setItem ('token', accessTokenResp.access_token);
+    })
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer '+localStorage.getItem('token')
+    });
+    const options = { headers };
+    const query = "select  Id,Steps_Taken__c from Case where Id='" + id + "'";
+    return this.http.get<CaseStepsTaken>(`${this.environment.salesforceURL}?q=${query}`, options).pipe(
+      map((data: CaseStepsTaken) => {
+        return data;
+      })
+    );
   }
 
   //Get all attachments
@@ -155,7 +181,7 @@ export class BlogService {
     });
     const options = { headers };
     const query = "SELECT Id, Name, ParentId, Parent.Type FROM Attachment where Parent.Type ='" + detailType + "' and ParentId='" + id + "'";
-    return this.http.get<AttachmentsResponse>(`${this.environment.salesforceattachmentsURL}?q=${query}`, options).pipe(
+    return this.http.get<AttachmentsResponse>(`${this.environment.salesforceURL}?q=${query}`, options).pipe(
       map((data: AttachmentsResponse) => {
         return data;
       })
@@ -183,22 +209,20 @@ export class BlogService {
     );
   }
 
-  // getSalesForceAttachmentDetailBody(id: string): any {
-  //   return this.getAccessTokenAPI().then((accessTokenResp: AuthBody) => {
-  //     this.setToken = accessTokenResp.access_token;
-  //     console.log(this.getAttachmentDetailsBody(id));
-  //     return this.getAttachmentDetailsBody(id);
-  //   }).catch((err: any) => {
-  //     console.log(err);
-  //   });
-  // }
+  getSalesForceAttachmentDetailBody(id: string): Observable<any> {
+    return this.getAttachmentDetailsBody(id);
+  }
 
-  private getAttachmentDetailsBody(id: string): any {
+  private getAttachmentDetailsBody(id: string): Observable<any> {
+    this.getAccessTokenAPI().subscribe((accessTokenResp: AuthBody) => {
+      this.setToken = accessTokenResp.access_token;
+      localStorage.setItem ('token', accessTokenResp.access_token);
+    })
     const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + this.getToken
+      Authorization: 'Bearer '+localStorage.getItem('token')
     });
-    const options = { headers };
-    return this.http.get<Promise<any>>(`${this.environment.salesforceattachmentDetailsURL}${id}/Body`, options).toPromise();
+    const options:any = { headers, responseType: 'blob' };
+    return this.http.get<any>(`${this.environment.salesforceattachmentDetailsURL}${id}/Body`, options);
   }
 
 
@@ -209,8 +233,7 @@ export class BlogService {
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
         'Acces-Control-Allow-Methods': 'GET, POST, PATCH, DELETE'
       })
-    }).pipe(
-      map((data: ArticlesType[]) => {
+    }).pipe(map((data: ArticlesType[]) => {
         return data;
       }),
       catchError(err => of([]))

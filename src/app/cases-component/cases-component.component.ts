@@ -142,8 +142,9 @@ export class CasesComponentComponent implements OnInit {
     this.sidebar.element.style.visibility = '';
   }
 
-  public redirectToDetails = (id: string) => {
-    this.router.navigate(['casedetails'],{queryParams: {id: id, type:DetailType.Case, search:this.searchText}, skipLocationChange: true});
+  public redirectToDetails = (caseNumber: string, caseId:string) => {
+    this.router.navigate(['casedetails'],{queryParams: {num:caseNumber, id:caseId,
+      type:DetailType.Case, search:this.searchText}, skipLocationChange: true});
   }
 
   open(urlToOpen: string) {

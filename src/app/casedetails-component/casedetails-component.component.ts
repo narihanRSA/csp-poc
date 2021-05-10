@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, CaseDetails, DetailType } from '../search.modal';
+import { AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, CaseActivityHistoryDetails, CaseActivityHistoryRecords, CaseArticle, CaseArticleDetails, CaseDetails, CaseStepsTakenDetails, DetailType } from '../search.modal';
 import { BlogService } from '../search.service';
 
 @Component({
@@ -11,26 +14,38 @@ import { BlogService } from '../search.service';
   templateUrl: './casedetails-component.component.html',
   styleUrls: ['./casedetails-component.component.css']
 })
-export class CasedetailsComponentComponent implements OnInit {
+export class CasedetailsComponentComponent implements AfterViewInit {
   searchText: string = '';
   closeResult = '';
-  id: string = '';
+  caseNumber: string = '';
+  caseId: string = '';
   showMore = false;
   data: any[] = [];
   type: DetailType = DetailType.Case;
   displayedColumns: string[] = [];
-  displayedColumnsAH: string[] = [
-    'Subject',
-    'DueDate',
-    'AssignedTo',
-    'Name',
-    'LastModified',
-    'Status',
-    'CreatedDate'
+  displayedColumnsArticles: string[] = [
+    'KnowledgeArticleId',
+    'ArticleLanguage',
+    'ArticleVersionNumber'
+  ];
+
+  displayedColumnsStepsTaken: string[] = [
+    'Steps_Taken__c'
+  ];
+
+  displayedColumnsActivityHistory: string[] = [
+    "ActivityDate",
+    "ActivitySubtype",
+    "Id",
+    "Status",
+    "Priority",
+    "StartDateTime",
+    "Description",
+    "Subject"
   ];
 
   displayedColumnsAttach: string[] = [
-    //'link',
+    'link',
     'Name',
     'CreatedDate',
     'LastModifiedDate'
@@ -42,22 +57,44 @@ export class CasedetailsComponentComponent implements OnInit {
   inputDataAH: any[] = [];
   inputDataAttach: any[] = [];
 
-  temp= new MatTableDataSource<string>(this.service.attachmentsResponse);
+  dataSourceAttachments = new MatTableDataSource<AttachmentDetails>();
+  dataSourceActivityHistory = new MatTableDataSource<CaseActivityHistoryRecords>();
+  dataSourceStepsTaken = new MatTableDataSource<string>();
+  dataSourceArticles = new MatTableDataSource<CaseArticleDetails>();
 
-  // attachmentResponse: AttachmentDetails[] = [];
+  @ViewChild('paginatorST', { static: true })
+  paginatorST!: MatPaginator;
+  @ViewChild('paginatorAH', { static: true })
+  paginatorAH!: MatPaginator;
+  @ViewChild('paginatorA', { static: true })
+  paginatorA!: MatPaginator;
+  @ViewChild('paginatorATT', { static: true })
+  paginatorATT!: MatPaginator;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private service: BlogService) { }
 
   ngOnInit(): void {
-    this.searchText = this.route.snapshot.queryParams['search'];
-    this.id = this.route.snapshot.queryParams['id'];
-    this.type = this.route.snapshot.queryParams['type'];
     setTimeout(() => {
-      this.getAttachments("5004u00002QJUQmAAP");
+      this.dataSourceAttachments.paginator = this.paginatorATT
+      this.dataSourceActivityHistory.paginator = this.paginatorAH
+      this.dataSourceStepsTaken.paginator = this.paginatorST
+      this.dataSourceArticles.paginator = this.paginatorA
+    });
+
+    this.searchText = this.route.snapshot.queryParams['search'];
+    this.caseNumber = this.route.snapshot.queryParams['num'];
+    this.caseId = this.route.snapshot.queryParams['id'];
+    this.type = this.route.snapshot.queryParams['type'];
+    console.log(this.caseId);
+    setTimeout(() => {
+      this.getAttachments("5004u00002QJUQmAAP");//this.caseId);
+      this.getArticles("5004u00002QJUQmAAP");//this.caseId);
+      this.getStepsTaken("5004u00002QJUQmAAP");//this.caseId);
+      this.getActivityHistory("5004u00002QJUQmAAP");//this.caseId);
     }, 0);
-    // this.populateCase();
+    this.populateCase();
     this.data = this.displayedColumns.map(x => this.formatInputRow(x));
     this.inputCol = ["0"].concat(
       this.inputData.map(x => x.CaseNumber!.toString())
@@ -66,6 +103,13 @@ export class CasedetailsComponentComponent implements OnInit {
 
     //this.getAttachmentDetails("00P4u00001xNWKiEAO");
     //this.getAttachmentBody("00P4u00001xNWKiEAO");
+  }
+
+  ngAfterViewInit() {
+    this.dataSourceAttachments.paginator = this.paginatorATT
+    this.dataSourceActivityHistory.paginator = this.paginatorAH
+    this.dataSourceStepsTaken.paginator = this.paginatorST
+    this.dataSourceArticles.paginator = this.paginatorA
   }
 
   back(): void {
@@ -121,22 +165,6 @@ export class CasedetailsComponentComponent implements OnInit {
       'case_summary__c'
     ]
 
-    this.inputDataAttach = [{
-      link: "https://dell-my.sharepoint.com/:p:/r/personal/narihan_ellaithy_rsa_com/Documents/Product%20discovery.pptx?d=w308cb6a75c6d4c849f8fbceb1a374eac&csf=1&web=1&e=cm3pR9",
-      FileName: "download.pdf",
-      LastModified: "10/03/2021"
-    }]
-
-    this.inputDataAH = [{
-      Subject: "Comment",
-      DueDate: "30/3/2021",
-      AssignedTo: "Hassan Ibrahim",
-      Name: "Narihan QH728179u21",
-      LastModified: "30/3/2021 3:30 AM",
-      Status: "Completed",
-      CreatedDate: "30/3/2021 3:30 AM"
-    }]
-
     this.inputData = [{
       CaseNumber: 123,
       CreatedDate: new Date(),
@@ -182,32 +210,99 @@ export class CasedetailsComponentComponent implements OnInit {
   }
 
   getAttachments(id: string) {
-      this.service.getSalesForceAttachmentInformation(this.type, id).subscribe((value: any)=>{
-        const arr:string[]=[];
-        (value.records).forEach((record: AttachmentRecordDetails) => {
-            arr.push(record.Id)
-        })
-        setTimeout(() => {
-          this.temp = new MatTableDataSource<string>(arr);
-          console.log(this.temp)
-        }, 0)
+    this.service.getSalesForceAttachmentInformation(this.type, id).subscribe((value: any) => {
+      const arr: string[] = [];
+      (value.records).forEach((record: AttachmentRecordDetails) => {
+        arr.push(record.Id ? record.Id : "")
       })
-    }
 
-  getAttachmentDetails(id: string){
-      // this.attachmentResponse.push(this.service.getSalesForceAttachmentDetailInformation(id));
+      const arrAllInfo: AttachmentDetails[] = [];
+      //For each record id get single attachment details
+      arr.forEach((id: string) => {
+        this.service.getSalesForceAttachmentDetailInformation(id).subscribe((value: any) => {
+          arrAllInfo.push(value)
+          setTimeout(() => {
+            this.dataSourceAttachments = new MatTableDataSource<AttachmentDetails>(arrAllInfo);
+            this.dataSourceAttachments.paginator = this.paginatorATT
+          }, 0)
+        })
+      })
+    })
   }
 
-  // getAttachmentBody(id: string){
-  //     let imageData;
-  //     this.service.getSalesForceAttachmentDetailBody(id).then((res: any) => { console.log(res); return res.blob() })
-  //       .then((blob: any) => {
-  //         var img = URL.createObjectURL(blob);
-  //         // Do whatever with the img
-  //         document.getElementById('myImage')!.setAttribute('src', img);
-  //       }).catch((err: any) => {
-  //         console.log(err);
-  //       });
-  //   }
+  getActivityHistory(id: string) {
+    this.service.getSalesForceCaseActivityHistory(id).subscribe((value: any) => {
+      const arr: CaseActivityHistoryRecords[] = [];
+      (value.records).forEach((record: CaseActivityHistoryDetails) => {
+        record.ActivityHistories?.records?.forEach((rec: CaseActivityHistoryRecords) => {
+          rec.visible = false;
+          arr.push(rec);
+        }
+        )
+      })
+      setTimeout(() => {
+        this.dataSourceActivityHistory = new MatTableDataSource<CaseActivityHistoryRecords>(arr);
+        this.dataSourceActivityHistory.paginator = this.paginatorAH
+      }, 0)
+    })
+  }
+
+  getStepsTaken(id: string) {
+    this.service.getSalesForceCaseStepsTaken(id).subscribe((value: any) => {
+      const arr: string[] = [];
+      (value.records).forEach((record: CaseStepsTakenDetails) => {
+        let steps = record.Steps_Taken__c != undefined ? record.Steps_Taken__c!.split("***STEPS TAKEN***") : [];
+        console.log(steps)
+        steps.forEach((step: string) => {
+          if (step.length > 1)
+            arr.push(step);
+        })
+      })
+      setTimeout(() => {
+        this.dataSourceStepsTaken = new MatTableDataSource<string>(arr);
+        this.dataSourceStepsTaken.paginator = this.paginatorST
+      }, 0)
+    })
+  }
+
+  getArticles(id: string) {
+    this.service.getSalesForceCaseArticles(id).subscribe((value: any) => {
+      const arr: CaseArticleDetails[] = [];
+      (value.records).forEach((record: CaseArticleDetails) => {
+        arr.push(record);
+      })
+      setTimeout(() => {
+        this.dataSourceArticles = new MatTableDataSource<CaseArticleDetails>(arr);
+        this.dataSourceArticles.paginator = this.paginatorA
+      }, 0)
+    })
+  }
+
+  getAttachmentBody(id: string, fileName:string) {
+    this.service.getSalesForceAttachmentDetailBody(id).subscribe((value: any) => {
+      console.log(value)
+      let url = window.URL.createObjectURL(value);
+      // let pwa = window.open(url);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      // this is necessary as link.click() does not work on the latest firefox
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+
+      setTimeout(function () {
+        // For Firefox it is necessary to delay revoking the ObjectURL
+        window.URL.revokeObjectURL(url);
+        link.remove();
+      }, 100);
+    })
+  }
+
+  getAttachmentBodyView(id: string) {
+    this.service.getSalesForceAttachmentDetailBody(id).subscribe((value: any) => {
+      console.log(value)
+      let url = window.URL.createObjectURL(value);
+      let pwa = window.open(url);
+    })
+  }
 }
 

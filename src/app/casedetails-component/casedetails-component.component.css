@@ -6,9 +6,60 @@ table {
   flex: 1 1 auto;
 }
 
-
 .profile-icon {
   font-size:25px;
   color:rgb(189, 35, 35);
   padding-top:15px;
+}
+
+.container {
+  font-size: 16px;
+  line-height: 16px;
+  height: 32px;
+  overflow: hidden;
+}
+
+.show {
+  overflow: visible;
+  height: auto;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+.mat-table-sticky {
+  background: rgb(190, 190, 190);
+  opacity: 1;
+}
+
+.example-sticky-toggle-group {
+  margin: 8px;
+}
+
+.mat-column-filler {
+  padding: 0 8px;
+  font-size: 10px;
+  text-align: center;
+}
+
+.mat-header-cell, .mat-footer-cell, .mat-cell {
+  min-width: 80px;
+  box-sizing: border-box;
+}
+.mat-table-sticky-border-elem-top {
+  border-bottom: 2px solid rgb(190, 190, 190);
+}
+
+.mat-table-sticky-border-elem-right {
+  border-left: 2px solid rgb(190, 190, 190);
+}
+
+.mat-table-sticky-border-elem-bottom {
+  border-top: 2px solid rgb(190, 190, 190);
+}
+
+.mat-table-sticky-border-elem-left {
+  border-right: 2px solid rgb(190, 190, 190);
 }
