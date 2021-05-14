@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, CaseActivityHistoryDetails, CaseActivityHistoryRecords, CaseArticle, CaseArticleDetails, CaseDetails, CaseStepsTakenDetails, DetailType } from '../search.modal';
+import { ArticleDetails, AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, CaseActivityHistoryDetails, CaseActivityHistoryRecords, CaseArticle, CaseArticleDetails, CaseDetails, CaseStepsTakenDetails, DetailType } from '../search.modal';
 import { BlogService } from '../search.service';
 
 @Component({
@@ -25,8 +25,8 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   displayedColumns: string[] = [];
   displayedColumnsArticles: string[] = [
     'KnowledgeArticleId',
-    'ArticleLanguage',
-    'ArticleVersionNumber'
+    'Title',
+    'CreatedDate'
   ];
 
   displayedColumnsStepsTaken: string[] = [
@@ -60,7 +60,7 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   dataSourceAttachments = new MatTableDataSource<AttachmentDetails>();
   dataSourceActivityHistory = new MatTableDataSource<CaseActivityHistoryRecords>();
   dataSourceStepsTaken = new MatTableDataSource<string>();
-  dataSourceArticles = new MatTableDataSource<CaseArticleDetails>();
+  dataSourceArticles = new MatTableDataSource<ArticleDetails>();
 
   @ViewChild('paginatorST', { static: true })
   paginatorST!: MatPaginator;
@@ -266,19 +266,28 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   }
 
   getArticles(id: string) {
+    var arr2: string[] = [];
+    const arr: ArticleDetails[] = [];
     this.service.getSalesForceCaseArticles(id).subscribe((value: any) => {
-      const arr: CaseArticleDetails[] = [];
       (value.records).forEach((record: CaseArticleDetails) => {
-        arr.push(record);
+        arr2.push(record.KnowledgeArticleId ? record.KnowledgeArticleId : '');
       })
-      setTimeout(() => {
-        this.dataSourceArticles = new MatTableDataSource<CaseArticleDetails>(arr);
-        this.dataSourceArticles.paginator = this.paginatorA
-      }, 0)
-    })
+      arr2.forEach((articleId: string) => {
+        this.service.fetchArticle(articleId).pipe(map((data: ArticleDetails[]) => {
+          return data;
+        }), catchError(error => {
+          return throwError('Something went wrong!');
+        })).subscribe((value: ArticleDetails[]) => {
+          this.dataSourceArticles = new MatTableDataSource<ArticleDetails>(value);
+          setTimeout(() => {
+            this.dataSourceArticles.paginator = this.paginatorA
+          }, 0)
+        });
+      })
+    });
   }
 
-  getAttachmentBody(id: string, fileName:string) {
+  getAttachmentBody(id: string, fileName: string) {
     this.service.getSalesForceAttachmentDetailBody(id).subscribe((value: any) => {
       console.log(value)
       let url = window.URL.createObjectURL(value);

@@ -100,7 +100,7 @@ export interface CaseDetails {
 export interface ArticleDetails {
   ArticleNumber?: number,
   Product_Details__c?: string,
-  ArticleCaseAttachCount?: string,
+  ArticleCaseAttachCount?: number,
   ArticleType?: string,
   Cause__c?: string,
   CreatedDate?: Date,
@@ -110,6 +110,12 @@ export interface ArticleDetails {
   Title?: string,
   Resolution__c?: string,
   Notes__c?: string
+  Body?:string,
+  IsOutOfDate?:boolean,
+  KnowledgeArticleId?:string,
+  Notes_Internal__c?:string,
+  Number_of_cases_linked__c?:number,
+  Workaround__c?:string
 }
 
 export interface AuthBody {
