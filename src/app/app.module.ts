@@ -28,6 +28,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponentComponent } from './details-component/details-component.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ArticledetailsComponentComponent } from './articledetails-component/articledetails-component.component';
+import { CasedetailsComponentComponent } from './casedetails-component/casedetails-component.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ArticlesComponentComponent,
     CasesComponentComponent,
     DefectsComponentComponent,
-    DetailsComponentComponent
+    DetailsComponentComponent,
+    ArticledetailsComponentComponent,
+    CasedetailsComponentComponent
   ],
   imports: [
     SidebarModule,

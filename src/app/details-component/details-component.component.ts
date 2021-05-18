@@ -64,6 +64,7 @@ export class DetailsComponentComponent implements OnInit {
       'ArticleType',
       'Summary'
     ]
+
   }
 
   populateCase(): void {
