@@ -126,17 +126,6 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   }
 
   populateCase(): void {
-    this.service.fetchCase(this.caseNumber).pipe(map((data: CaseDetails[]) => {
-      return data;
-    }), catchError(error => {
-      return throwError('Something went wrong!');
-    })).subscribe((value: any) => {
-      let json: CaseDetails[] = JSON.parse(value);
-      this.inputData = json;
-      console.log("cases: ",this.inputData);
-      console.log("cases json: ",json);
-    });
-
     this.displayedColumns = ['CaseNumber',
       'CreatedDate',
       'RSA_Product_Set__c',
@@ -163,13 +152,24 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       'Preferred_Language__c',
       'case_summary__c'
     ]
-    this.inputCol = ["0"].concat(
-      this.inputData.map(x => x.CaseNumber!.toString())
-    );
-    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+    this.service.fetchCase(this.caseNumber).pipe(map((data: CaseDetails[]) => {
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value: any) => {
+      let json: CaseDetails[] = JSON.parse(value);
+      this.inputData = json;
 
-    console.log('data: ',this.data);
-    console.log('input data: ',this.inputData);
+      this.inputCol = ["0"].concat(
+        this.inputData.map(x => x.CaseNumber!.toString())
+      );
+      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+
+      console.log('data: ', this.data);
+      console.log("cases: ", this.inputData);
+      console.log("cases json: ", json);
+    });
+
 
     // this.inputData = [{
     //   CaseNumber: 123,
