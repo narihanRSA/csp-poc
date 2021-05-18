@@ -89,15 +89,16 @@ export class ArticledetailsComponentComponent implements OnInit {
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-      let json: ArticleDetails[] = JSON.parse(value);
-      this.inputData = json;
-      this.inputCol = ["0"].concat(
-        this.inputData.map(x => x.ArticleNumber!.toString())
-      );
-      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+      console.log('Value:',value)
+      // let json: ArticleDetails[] = JSON.parse(value);
+      // this.inputData = json;
+      // this.inputCol = ["0"].concat(
+      //   this.inputData.map(x => x.ArticleNumber!.toString())
+      // );
+      // this.data = this.displayedColumns.map(x => this.formatInputRow(x));
 
-      console.log(this.data);
-      console.log("articles: ", this.data);
+      // console.log(this.data);
+      // console.log("articles: ", this.data);
     });
 
     // this.inputData = [{
