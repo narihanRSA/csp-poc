@@ -62,6 +62,7 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   dataSourceStepsTaken = new MatTableDataSource<string>();
   dataSourceArticles = new MatTableDataSource<ArticleDetails>();
 
+
   @ViewChild('paginatorST', { static: true })
   paginatorST!: MatPaginator;
   @ViewChild('paginatorAH', { static: true })
@@ -162,11 +163,11 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       'Preferred_Language__c',
       'case_summary__c'
     ]
-
-    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
     this.inputCol = ["0"].concat(
       this.inputData.map(x => x.CaseNumber!.toString())
     );
+    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+
     console.log('data: ',this.data);
     console.log('input data: ',this.inputData);
 
