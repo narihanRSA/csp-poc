@@ -96,11 +96,7 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       this.getActivityHistory(this.caseId);
     }, 0);
     this.populateCase();
-    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
-    this.inputCol = ["0"].concat(
-      this.inputData.map(x => x.CaseNumber!.toString())
-    );
-    // console.log(this.data);
+
 
     //this.getAttachmentDetails("00P4u00001xNWKiEAO");
     //this.getAttachmentBody("00P4u00001xNWKiEAO");
@@ -137,6 +133,7 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       let json: CaseDetails[] = JSON.parse(value);
       this.inputData = json;
       console.log("cases: ",this.inputData);
+      console.log("cases json: ",json);
     });
 
     this.displayedColumns = ['CaseNumber',
@@ -165,6 +162,13 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       'Preferred_Language__c',
       'case_summary__c'
     ]
+
+    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+    this.inputCol = ["0"].concat(
+      this.inputData.map(x => x.CaseNumber!.toString())
+    );
+    console.log('data: ',this.data);
+    console.log('input data: ',this.inputData);
 
     // this.inputData = [{
     //   CaseNumber: 123,
