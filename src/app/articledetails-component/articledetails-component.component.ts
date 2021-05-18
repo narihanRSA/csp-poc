@@ -90,11 +90,12 @@ export class ArticledetailsComponentComponent implements OnInit {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
       let json: ArticleDetails[] = JSON.parse(value);
-      this.data = json;
-      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+      this.inputData = json;
       this.inputCol = ["0"].concat(
         this.inputData.map(x => x.ArticleNumber!.toString())
       );
+      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+
       console.log(this.data);
       console.log("articles: ", this.data);
     });
