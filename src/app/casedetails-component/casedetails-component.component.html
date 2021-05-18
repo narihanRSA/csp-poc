@@ -20,24 +20,27 @@
 
   <div>
     <!-- Subject -->
-    <h1 style="text-align: center; margin:20px;">SUBJECT</h1>
+    <h1 style="text-align: center; margin:20px;">{{data[0].Title}}</h1>
     <div class="mat-elevation-z8" style="margin:20px;">
       <table mat-table [dataSource]="data">
         <ng-container [matColumnDef]="column" *ngFor="let column of inputCol">
-          <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-          <td mat-cell *matCellDef="let element">
-            <span>
-              <div *ngIf="isNotString(element[column]) || !isNotString(element[column]) && element[column].length<299">
-                {{element[column]}}
-              </div>
-              <div *ngIf="!isNotString(element[column]) && element[column].length>299">
-                <p>
-                  {{(showMore) ? element[column] : element[column] | slice:0:300}} <span *ngIf="!showMore">...</span>
-                  <a href="javascript:;" *ngIf="!showMore" (click)="showMore=true">[Show More]</a>
-                </p>
-              </div>
-            </span>
-          </td>
+          <div *ngIf="data[0][column] != null">
+            <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                <div
+                  *ngIf="isNotString(element[column]) || !isNotString(element[column]) && element[column].length<299">
+                  {{element[column]}}
+                </div>
+                <div *ngIf="!isNotString(element[column]) && element[column].length>299">
+                  <p>
+                    {{(showMore) ? element[column] : element[column] | slice:0:300}} <span *ngIf="!showMore">...</span>
+                    <a href="javascript:;" *ngIf="!showMore" (click)="showMore=true">[Show More]</a>
+                  </p>
+                </div>
+              </span>
+            </td>
+          </div>
         </ng-container>
 
         <tr mat-row *matRowDef="let row; columns: inputCol;"></tr>

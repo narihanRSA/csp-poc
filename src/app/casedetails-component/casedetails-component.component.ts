@@ -98,7 +98,6 @@ export class CasedetailsComponentComponent implements AfterViewInit {
     }, 0);
     this.populateCase();
 
-
     //this.getAttachmentDetails("00P4u00001xNWKiEAO");
     //this.getAttachmentBody("00P4u00001xNWKiEAO");
   }
