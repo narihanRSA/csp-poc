@@ -14,10 +14,10 @@ export class ArticledetailsComponentComponent implements OnInit {
   searchText: string = '';
   closeResult = '';
   id: string = '';
-  type:DetailType=DetailType.Article;
+  type: DetailType = DetailType.Article;
   data: any[] = [];
   displayedColumns: string[] = [];
-  displayedColumnsAH: string[] =[
+  displayedColumnsAH: string[] = [
     'Subject',
     'DueDate',
     'AssignedTo',
@@ -27,32 +27,28 @@ export class ArticledetailsComponentComponent implements OnInit {
     'CreatedDate'
   ];
 
-  displayedColumnsAttach: string[] =[
+  displayedColumnsAttach: string[] = [
     'link',
     'FileName',
     'LastModified'
   ];
 
   dictionary: string[] = [];
-  inputCol:string[]=[];
-  inputData:any[]=[];
-  inputDataAH:any[]=[];
-  inputDataAttach:any[]=[];
+  inputCol: string[] = [];
+  inputData: any[] = [];
+  inputDataAH: any[] = [];
+  inputDataAttach: any[] = [];
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private service:BlogService) { }
+    private service: BlogService) { }
 
   ngOnInit(): void {
     this.searchText = this.route.snapshot.queryParams['search'];
     this.id = this.route.snapshot.queryParams['id'];
     this.type = this.route.snapshot.queryParams['type'];
     this.populateArticle();
-    this.data = this.displayedColumns.map(x => this.formatInputRow(x));
-    this.inputCol = ["0"].concat(
-      this.inputData.map(x => x.ArticleNumber!.toString())
-    );
-    console.log(this.data);
+
   }
 
   back(): void {
@@ -63,24 +59,14 @@ export class ArticledetailsComponentComponent implements OnInit {
     });
   }
 
-  deleteRow(x: number){
+  deleteRow(x: number) {
     var delBtn = confirm(" Do you want to delete ?");
-    if ( delBtn == true ) {
-      this.inputDataAH.splice(x, 1 );
+    if (delBtn == true) {
+      this.inputDataAH.splice(x, 1);
     }
   }
 
   populateArticle(): void {
-    this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
-      return data;
-    }), catchError(error => {
-      return throwError('Something went wrong!');
-    })).subscribe((value: any) => {
-      let json: ArticleDetails[] = JSON.parse(value);
-      this.data = json;
-      console.log("articles: ",this.data);
-    });
-
     this.displayedColumns = ['ArticleNumber',
       'Product_Details__c',
       'Issue__c',
@@ -98,32 +84,20 @@ export class ArticledetailsComponentComponent implements OnInit {
       'KnowledgeArticleId',
 
     ]
-    // this.displayedColumnsAH=[
-    //   'Action',
-    //   'Subject',
-    //   'Due Date',
-    //   'Assigned To',
-    //   'Name',
-    //   'Last Modified Date/Time',
-    //   'Status',
-    //   'Created Date'
-    // ]
-
-    this.inputDataAttach=[{
-      link:"https://dell-my.sharepoint.com/:p:/r/personal/narihan_ellaithy_rsa_com/Documents/Product%20discovery.pptx?d=w308cb6a75c6d4c849f8fbceb1a374eac&csf=1&web=1&e=cm3pR9",
-      FileName: "download.pdf",
-      LastModified:"10/03/2021"
-    }]
-
-    this.inputDataAH=[{
-      Subject:"Comment",
-      DueDate:"30/3/2021",
-      AssignedTo:"Hassan Ibrahim",
-      Name:"Narihan QH728179u21",
-      LastModified:"30/3/2021 3:30 AM",
-      Status:"Completed",
-      CreatedDate:"30/3/2021 3:30 AM"
-    }]
+    this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value: any) => {
+      let json: ArticleDetails[] = JSON.parse(value);
+      this.data = json;
+      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+      this.inputCol = ["0"].concat(
+        this.inputData.map(x => x.ArticleNumber!.toString())
+      );
+      console.log(this.data);
+      console.log("articles: ", this.data);
+    });
 
     // this.inputData = [{
     //   ArticleNumber: 12,
