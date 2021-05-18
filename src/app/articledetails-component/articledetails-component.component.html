@@ -18,20 +18,20 @@
 
   <div>
     <!-- Subject -->
-    <!-- <h1 style="text-align: center; margin:20px;">{{data[0].Title}}</h1> -->
+    <h1 style="text-align: center; margin:20px;">{{data[0].Title}}</h1>
     <div class="mat-elevation-z8" style="margin:20px;">
-    <table mat-table [dataSource]="data">
-      <ng-container [matColumnDef]="column" *ngFor="let column of inputCol">
-        <div *ngIf="data[0][column] != null">
-        <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-        <td mat-cell *matCellDef="let element">
-          <span style="overflow:auto;">{{ element[column] }}</span>
-        </td>
-        </div>
-      </ng-container>
+      <table mat-table [dataSource]="data">
+        <ng-container [matColumnDef]="column" *ngFor="let column of inputCol">
+          <div *ngIf="data[0][column] != null">
+            <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+            <td mat-cell *matCellDef="let element">
+              <span style="overflow:auto;">{{ element[column] }}</span>
+            </td>
+          </div>
+        </ng-container>
 
-      <tr mat-row *matRowDef="let row; columns: inputCol;"></tr>
-    </table>
+        <tr mat-row *matRowDef="let row; columns: inputCol;"></tr>
+      </table>
     </div>
   </div>
 

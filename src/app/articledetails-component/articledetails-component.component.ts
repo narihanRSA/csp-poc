@@ -79,7 +79,6 @@ export class ArticledetailsComponentComponent implements OnInit {
       'Summary',
       'Notes__c',
       'Title',
-      'Body',
       'IsOutOfDate',
       'KnowledgeArticleId',
     ]
