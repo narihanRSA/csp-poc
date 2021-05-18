@@ -23,7 +23,7 @@ export class ArticlesComponentComponent implements OnInit, AfterViewInit {
 
   title = 'csp-poc';
   panelOpenState = false;
-  displayedColumns: string[] = ['article_number', 'title', 'created', 'details'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
+  displayedColumns: string[] = ['article_number', 'title', 'article_count', 'created', 'details'];//, 'type', 'publish_date', 'knowledge_article', 'actions'];
   public width: string = '290px';
   articles = new ArticlesResults();
   dataSource = new MatTableDataSource<ArticlesType>(this.articles.articles);

@@ -49,6 +49,11 @@
                 <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
               </ng-container>
 
+              <ng-container matColumnDef="article_count">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Article Count </th>
+                <td mat-cell *matCellDef="let element"> {{element.ArticleCaseAttachCount}} </td>
+              </ng-container>
+
               <ng-container matColumnDef="created">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   Created
