@@ -88,11 +88,12 @@ export class CasedetailsComponentComponent implements AfterViewInit {
     this.caseId = this.route.snapshot.queryParams['id'];
     this.type = this.route.snapshot.queryParams['type'];
     console.log(this.caseId);
+    console.log(this.caseNumber);
     setTimeout(() => {
-      this.getAttachments("5004u00002QJUQmAAP");//this.caseId);
-      this.getArticles("5004u00002QJUQmAAP");//this.caseId);
-      this.getStepsTaken("5004u00002QJUQmAAP");//this.caseId);
-      this.getActivityHistory("5004u00002QJUQmAAP");//this.caseId);
+      this.getAttachments(this.caseId);
+      this.getArticles(this.caseId);
+      this.getStepsTaken(this.caseId);
+      this.getActivityHistory(this.caseId);
     }, 0);
     this.populateCase();
     this.data = this.displayedColumns.map(x => this.formatInputRow(x));
@@ -128,15 +129,15 @@ export class CasedetailsComponentComponent implements AfterViewInit {
   }
 
   populateCase(): void {
-    // this.service.fetchCase(this.id).pipe(map((data: CaseDetails[]) => {
-    //   return data;
-    // }), catchError(error => {
-    //   return throwError('Something went wrong!');
-    // })).subscribe((value: any) => {
-    //   let json: CaseDetails[] = JSON.parse(value);
-    //   this.inputData = json;
-    //   console.log("cases: ",this.inputData);
-    // });
+    this.service.fetchCase(this.caseNumber).pipe(map((data: CaseDetails[]) => {
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value: any) => {
+      let json: CaseDetails[] = JSON.parse(value);
+      this.inputData = json;
+      console.log("cases: ",this.inputData);
+    });
 
     this.displayedColumns = ['CaseNumber',
       'CreatedDate',
@@ -165,33 +166,33 @@ export class CasedetailsComponentComponent implements AfterViewInit {
       'case_summary__c'
     ]
 
-    this.inputData = [{
-      CaseNumber: 123,
-      CreatedDate: new Date(),
-      Status: "string",
-      Origin: "string",
-      Priority: "string",
-      Description: "string",
-      ClosedDate: new Date(),
-      IsEscalated: true,
-      CurrencyIsoCode: "string",
-      Account_Country__c: "string",
-      Action_Owner__c: "string",
-      Case_Age__c: "string",
-      Current_Action_Owner__c: "string",
-      Current_Status__c: "string",
-      Entitlement_Start_Created_Date__c: new Date(),
-      Entitlement_Status__c: "string",
-      Escalation_Required__c: "Omar",
-      Implementation_Status__c: "string",
-      Initial_Severity__c: "string",
-      Milestone_Status_Reporting__c: "string",
-      Pref_Communication__c: "string",
-      Preferred_Language__c: "string",
-      RSA_Product_Set__c: "string",
-      Supporting_Information__c: "string",
-      case_summary__c: "string"
-    }] as CaseDetails[];
+    // this.inputData = [{
+    //   CaseNumber: 123,
+    //   CreatedDate: new Date(),
+    //   Status: "string",
+    //   Origin: "string",
+    //   Priority: "string",
+    //   Description: "string",
+    //   ClosedDate: new Date(),
+    //   IsEscalated: true,
+    //   CurrencyIsoCode: "string",
+    //   Account_Country__c: "string",
+    //   Action_Owner__c: "string",
+    //   Case_Age__c: "string",
+    //   Current_Action_Owner__c: "string",
+    //   Current_Status__c: "string",
+    //   Entitlement_Start_Created_Date__c: new Date(),
+    //   Entitlement_Status__c: "string",
+    //   Escalation_Required__c: "Omar",
+    //   Implementation_Status__c: "string",
+    //   Initial_Severity__c: "string",
+    //   Milestone_Status_Reporting__c: "string",
+    //   Pref_Communication__c: "string",
+    //   Preferred_Language__c: "string",
+    //   RSA_Product_Set__c: "string",
+    //   Supporting_Information__c: "string",
+    //   case_summary__c: "string"
+    // }] as CaseDetails[];
   }
 
   isNotString(val: any): boolean {

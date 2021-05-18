@@ -12,6 +12,8 @@ export interface ArticlesType {
   ArticleNumber: number;
   Title: string;
   CreatedDate: Date;
+  KnowledgeArticleId:string;
+  ArticleCaseAttachCount:number;
 }
 
 export class ArticlesResults {
@@ -29,7 +31,6 @@ export class ArticlesResults {
 
 export interface CasesType {
   CaseNumber: number;
-  Id:string;
   Subject: string;
   Status: string;
   CreatedDate: Date;

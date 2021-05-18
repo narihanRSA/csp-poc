@@ -45,85 +45,96 @@
     </div>
 
     <!-- Steps taken -->
-    <h3 style="margin:20px;">Steps Taken</h3>
-    <div class="mat-elevation-z8" style="margin:20px;">
-      <table mat-table [dataSource]="dataSourceStepsTaken">
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsStepsTaken; let i = index">
-          <th mat-header-cell *matHeaderCellDef style="display: none;"> </th>
-          <td mat-cell *matCellDef="let element"> {{element}} </td>
-        </ng-container>
+    <div *ngIf="dataSourceStepsTaken.data.length>0">
+      <h3 style="margin:20px;">Steps Taken</h3>
+      <div class="mat-elevation-z8" style="margin:20px;">
+        <table mat-table [dataSource]="dataSourceStepsTaken">
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsStepsTaken; let i = index">
+            <th mat-header-cell *matHeaderCellDef style="display: none;"> </th>
+            <td mat-cell *matCellDef="let element"> {{element}} </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsStepsTaken"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsStepsTaken;"></tr>
-      </table>
-      <mat-paginator  #paginatorST="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsStepsTaken"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsStepsTaken;"></tr>
+        </table>
+        <mat-paginator #paginatorST="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
     </div>
 
     <!-- Activity History -->
-    <h3 style="margin:20px;">Activity History</h3>
-    <div class="example-container mat-elevation-z8" style="margin:20px;">
-      <table mat-table [dataSource]="dataSourceActivityHistory">
-        <ng-container [matColumnDef]="column" [sticky]="(column=='ActivityDate') ? true:false"
-        *ngFor="let column of displayedColumnsActivityHistory; let i = index">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center"> {{ column }} </th>
-          <td mat-cell *matCellDef="let element">
-            <span>
-              <div *ngIf="element[column]!=null && column!='Description'">
-                {{element[column]}}
-              </div>
-              <div *ngIf="element[column]!=null && column=='Description'">
-                <div class="container" [class.show]="element.visible">
+    <div *ngIf="dataSourceActivityHistory.data.length>0">
+      <h3 style="margin:20px;">Activity History</h3>
+      <div class="example-container mat-elevation-z8" style="margin:20px;">
+        <table mat-table [dataSource]="dataSourceActivityHistory">
+          <ng-container [matColumnDef]="column" [sticky]="(column=='ActivityDate') ? true:false"
+            *ngFor="let column of displayedColumnsActivityHistory; let i = index">
+            <th mat-header-cell *matHeaderCellDef style="text-align:center"> {{ column }} </th>
+            <td mat-cell *matCellDef="let element">
+              <span>
+                <div *ngIf="element[column]!=null && column!='Description'">
                   {{element[column]}}
                 </div>
-                <button mat-button color="primary" (click)="element.visible = !element.visible">{{ element.visible ? 'Show less': 'Show More'
-                  }}</button>
-              </div>
-            </span>
-          </td>
-        </ng-container>
+                <div *ngIf="element[column]!=null && column=='Description'">
+                  <div class="container" [class.show]="element.visible">
+                    {{element[column]}}
+                  </div>
+                  <button mat-button color="primary" (click)="element.visible = !element.visible">{{ element.visible ?
+                    'Show less': 'Show More'
+                    }}</button>
+                </div>
+              </span>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsActivityHistory;sticky:true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsActivityHistory;"></tr>
-      </table>
-      <mat-paginator #paginatorAH="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsActivityHistory;sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsActivityHistory;"></tr>
+        </table>
+        <mat-paginator #paginatorAH="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
     </div>
 
     <!-- Articles -->
-    <h3 style="margin:20px;">Articles</h3>
-    <div class="mat-elevation-z8" style="margin:20px;">
-      <table mat-table [dataSource]="dataSourceArticles">
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsArticles; let i = index">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center"> {{ column }} </th>
-          <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-        </ng-container>
+    <div *ngIf="dataSourceArticles.data.length>0">
+      <h3 style="margin:20px;">Articles</h3>
+      <div class="mat-elevation-z8" style="margin:20px;">
+        <table mat-table [dataSource]="dataSourceArticles">
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsArticles; let i = index">
+            <th mat-header-cell *matHeaderCellDef style="text-align:center"> {{ column }} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsArticles"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsArticles;"></tr>
-      </table>
-      <mat-paginator #paginatorA="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsArticles"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsArticles;"></tr>
+        </table>
+        <mat-paginator #paginatorA="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
     </div>
 
     <!-- Attachments -->
-    <h3 style="margin:20px;">Attachments</h3>
-    <div class="mat-elevation-z8" style="margin:20px;">
-      <table mat-table [dataSource]="dataSourceAttachments">
-        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsAttach; let i = index">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center">
-            <h4 *ngIf="column == 'link'"> Action </h4>
-            <h4 *ngIf="column != 'link'"> {{column}} </h4>
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-button *ngIf="column == 'link'" (click)="getAttachmentBody(element.Id, element.Name)" color="primary"> Download </button>
-            <button mat-button *ngIf="column == 'link'" (click)="getAttachmentBodyView(element.Id)" color="primary"> View </button>
-            <p *ngIf="column != 'link'" >{{element[column]}}</p>
-          </td>
+    <div *ngIf="dataSourceAttachments.data.length>0">
+      <h3 style="margin:20px;">Attachments</h3>
+      <div class="mat-elevation-z8" style="margin:20px;">
+        <table mat-table [dataSource]="dataSourceAttachments">
+          <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsAttach; let i = index">
+            <th mat-header-cell *matHeaderCellDef style="text-align:center">
+              <h4 *ngIf="column == 'link'"> Action </h4>
+              <h4 *ngIf="column != 'link'"> {{column}} </h4>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button *ngIf="column == 'link'" (click)="getAttachmentBody(element.Id, element.Name)"
+                color="primary"> Download </button>
+              <button mat-button *ngIf="column == 'link'" (click)="getAttachmentBodyView(element.Id)" color="primary">
+                View </button>
+              <p *ngIf="column != 'link'">{{element[column]}}</p>
+            </td>
+          </ng-container>
 
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsAttach"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsAttach;"></tr>
-      </table>
-      <mat-paginator #paginatorATT="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsAttach"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsAttach;"></tr>
+        </table>
+        <mat-paginator #paginatorATT="matPaginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+      </div>
     </div>
   </div>
 </div>
