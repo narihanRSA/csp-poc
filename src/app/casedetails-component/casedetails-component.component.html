@@ -27,7 +27,7 @@
           <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
           <td mat-cell *matCellDef="let element">
             <span>
-              <div *ngIf="isNotString(element[column]) || element[column].length<299">
+              <div *ngIf="isNotString(element[column]) || !isNotString(element[column]) && element[column].length<299">
                 {{element[column]}}
               </div>
               <div *ngIf="!isNotString(element[column]) && element[column].length>299">

@@ -71,15 +71,16 @@ export class ArticledetailsComponentComponent implements OnInit {
   }
 
   populateArticle(): void {
-    // this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
-    //   return data;
-    // }), catchError(error => {
-    //   return throwError('Something went wrong!');
-    // })).subscribe((value: any) => {
-    //   let json: ArticleDetails[] = JSON.parse(value);
-    //   this.data = json;
-    //   console.log("articles: ",this.data);
-    // });
+    this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
+      return data;
+    }), catchError(error => {
+      return throwError('Something went wrong!');
+    })).subscribe((value: any) => {
+      let json: ArticleDetails[] = JSON.parse(value);
+      this.data = json;
+      console.log("articles: ",this.data);
+    });
+
     this.displayedColumns = ['ArticleNumber',
       'Product_Details__c',
       'Issue__c',
@@ -90,9 +91,13 @@ export class ArticledetailsComponentComponent implements OnInit {
       'IsLatestVersion',
       'ArticleType',
       'Summary',
-      'Notes__c'
-    ]
+      'Notes__c',
+      'Title',
+      'Body',
+      'IsOutOfDate',
+      'KnowledgeArticleId',
 
+    ]
     // this.displayedColumnsAH=[
     //   'Action',
     //   'Subject',
