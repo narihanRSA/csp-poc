@@ -82,7 +82,6 @@ export class ArticledetailsComponentComponent implements OnInit {
       'Body',
       'IsOutOfDate',
       'KnowledgeArticleId',
-
     ]
     this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
       return data;
@@ -91,14 +90,14 @@ export class ArticledetailsComponentComponent implements OnInit {
     })).subscribe((value: any) => {
       console.log('Value:',value)
       // let json: ArticleDetails[] = JSON.parse(value);
-      // this.inputData = json;
-      // this.inputCol = ["0"].concat(
-      //   this.inputData.map(x => x.ArticleNumber!.toString())
-      // );
-      // this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+      this.inputData = value;
+      this.inputCol = ["0"].concat(
+        this.inputData.map(x => x.ArticleNumber!.toString())
+      );
+      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
 
-      // console.log(this.data);
-      // console.log("articles: ", this.data);
+      console.log(this.data);
+      console.log("articles: ", this.data);
     });
 
     // this.inputData = [{
