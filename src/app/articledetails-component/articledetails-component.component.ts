@@ -91,17 +91,27 @@ export class ArticledetailsComponentComponent implements OnInit {
       // let json: ArticleDetails[] = JSON.parse(value);
       for(var key in value[0]){
         if(typeof value[0][key] === 'string'){
-          var html=value[0][key]
-          html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
-          html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
-          html = html.replace(/<\/div>/ig, '\n');
-          html = html.replace(/<\/li>/ig, '\n');
-          html = html.replace(/<li>/ig, '  *  ');
-          html = html.replace(/<\/ul>/ig, '\n');
-          html = html.replace(/<\/p>/ig, '\n');
-          html = html.replace(/<br\s*[\/]?>/gi, '\n');
-          html = html.replace(/<[^>]+>/ig, '');
-          value[0][key]=html;
+          var text=value[0][key]
+          text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+          text=text.replace(/&#39;/g, "'");
+          text = text.replace(/\n/gi, "");
+          text = text.replace(/<style([\s\S]*?)<\/style>/gi, "");
+          text = text.replace(/<script([\s\S]*?)<\/script>/gi, "");
+          text = text.replace(/<a.*?href="(.*?)[\?\"].*?>(.*?)<\/a.*?>/gi, " $2 $1 ");
+          text = text.replace(/<\/div>/gi, "\n\n");
+          text = text.replace(/<\/li>/gi, "\n");
+          text = text.replace(/<li.*?>/gi, "  *  ");
+          text = text.replace(/<\/ul>/gi, "\n\n");
+          text = text.replace(/<\/p>/gi, "\n\n");
+          text = text.replace(/<br\s*[\/]?>/gi, "\n");
+          text = text.replace(/<[^>]+>/gi, "");
+          text = text.replace(/^\s*/gim, "");
+          text = text.replace(/ ,/gi, ",");
+          text = text.replace(/ +/gi, " ");
+          text = text.replace(/\n+/gi, "\n\n");
+
+
+          value[0][key]=text;
         }
       }
       // console.log('value:', value)
