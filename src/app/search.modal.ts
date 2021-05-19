@@ -110,7 +110,7 @@ export interface ArticleDetails {
   Summary?: string,
   Title?: string,
   Resolution__c?: string,
-  Notes__c?: string
+  Notes__c?: string,
   Body?:string,
   IsOutOfDate?:boolean,
   KnowledgeArticleId?:string,

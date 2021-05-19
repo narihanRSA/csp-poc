@@ -67,35 +67,56 @@ export class ArticledetailsComponentComponent implements OnInit {
   }
 
   populateArticle(): void {
-    this.displayedColumns = ['ArticleNumber',
-      'Product_Details__c',
-      'Issue__c',
-      'Cause__c',
-      'Resolution__c',
-      'CreatedDate',
-      'ArticleCaseAttachCount',
-      'IsLatestVersion',
-      'ArticleType',
-      'Summary',
-      'Notes__c',
-      'Title',
-      'IsOutOfDate',
-      'KnowledgeArticleId',
-    ]
+    // this.displayedColumns = ['ArticleNumber',
+    //   'Product_Details__c',
+    //   'Issue__c',
+    //   'Cause__c',
+    //   'Resolution__c',
+    //   'CreatedDate',
+    //   'ArticleCaseAttachCount',
+    //   'IsLatestVersion',
+    //   'ArticleType',
+    //   'Summary',
+    //   'Notes__c',
+    //   'Title',
+    //   'IsOutOfDate',
+    //   'KnowledgeArticleId',
+    // ]
     this.service.fetchArticle(this.id).pipe(map((data: ArticleDetails[]) => {
       return data;
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-      console.log('Value:',value)
+      // console.log('Value:',value)
       // let json: ArticleDetails[] = JSON.parse(value);
+      for(var key in value[0]){
+        if(typeof value[0][key] === 'string'){
+          var html=value[0][key]
+          html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
+          html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
+          html = html.replace(/<\/div>/ig, '\n');
+          html = html.replace(/<\/li>/ig, '\n');
+          html = html.replace(/<li>/ig, '  *  ');
+          html = html.replace(/<\/ul>/ig, '\n');
+          html = html.replace(/<\/p>/ig, '\n');
+          html = html.replace(/<br\s*[\/]?>/gi, '\n');
+          html = html.replace(/<[^>]+>/ig, '');
+          value[0][key]=html;
+        }
+      }
+      // console.log('value:', value)
+      value= this.removeEmptyOrNull(value)
+      console.log('value:', value)
       this.inputData = value;
+      for(var key in value[0]){
+        if(key!=='Body')
+          this.displayedColumns.push(key);
+      }
       this.inputCol = ["0"].concat(
         this.inputData.map(x => x.ArticleNumber!.toString())
       );
       this.data = this.displayedColumns.map(x => this.formatInputRow(x));
 
-      console.log(this.data);
       console.log("articles: ", this.data);
     });
 
@@ -115,14 +136,29 @@ export class ArticledetailsComponentComponent implements OnInit {
     // }] as ArticleDetails[]
   }
 
+  removeEmptyOrNull = (obj: { [x: string]: any; }) => {
+    Object.keys(obj).forEach(k =>
+      (obj[k] && typeof obj[k] === 'object') && this.removeEmptyOrNull(obj[k]) ||
+      (!obj[k] && obj[k] !== undefined) && delete obj[k]
+    );
+    return obj;
+  };
+
   formatInputRow(row: string) {
     const output = [];
 
     output[0] = row;
     for (let i = 0; i < this.inputData.length; ++i) {
-      output[this.inputData[i].ArticleNumber] = this.inputData[i][row];
+      // if(this.inputData[i][row] != null){
+        output[this.inputData[i].ArticleNumber] = this.inputData[i][row];
+      // }
+
     }
 
     return output;
+  }
+
+  openArticle(){
+    window.open(`https://rsasecurity.my.salesforce.com/${this.id}`);
   }
 }
