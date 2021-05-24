@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ArticleDetails, ArticlesType, AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, AuthBody, CaseArticle, CaseDetails, CaseStepsTaken, CasesType, DefectsType, DetailType } from './search.modal';
+import { ArticleDetails, ArticlesType, AttachmentDetails, AttachmentRecordDetails, AttachmentsResponse, AuthBody, CaseArticle, CaseDetails, CaseStepsTaken, CasesType, DefectDetails, DefectsType, DetailType } from './search.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -310,6 +310,22 @@ export class BlogService {
       })
     }).pipe(
       map((data: DefectsType[]) => {
+        return data;
+      }),
+      catchError(err => of([]))
+    );
+  }
+
+  fetchDefect(id: string): Observable<DefectDetails[]> {
+    return this.http.get<DefectDetails[]>(`${this.apiUrl}/getDefect?id=${id}`, {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type,Accept, Authortization',
+        'Acces-Control-Allow-Methods': 'GET, POST, PATCH, DELETE'
+      })
+    }).pipe(
+      map((data: DefectDetails[]) => {
+        console.log(data)
         return data;
       }),
       catchError(err => of([]))

@@ -69,6 +69,10 @@ export class DefectsResults {
   }
 }
 
+export interface DefectDetails {
+
+}
+
 export interface CaseDetails {
   CaseNumber?: number,
   Status?: string,

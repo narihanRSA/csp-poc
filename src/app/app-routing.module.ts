@@ -4,6 +4,7 @@ import { ArticledetailsComponentComponent } from './articledetails-component/art
 import { ArticlesComponentComponent } from './articles-component/articles-component.component';
 import { CasedetailsComponentComponent } from './casedetails-component/casedetails-component.component';
 import { CasesComponentComponent } from './cases-component/cases-component.component';
+import { DefectdetailsComponent } from './defectdetails/defectdetails.component';
 import { DefectsComponentComponent } from './defects-component/defects-component.component';
 import { DetailsComponentComponent } from './details-component/details-component.component';
 import { HomeComponent } from './home/home.component';
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'casedetails',
     component: CasedetailsComponentComponent
+  },
+  {
+    path: 'defectdetails',
+    component: DefectdetailsComponent
   }
 ];
 

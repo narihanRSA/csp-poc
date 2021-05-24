@@ -30,6 +30,7 @@ import { DetailsComponentComponent } from './details-component/details-component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticledetailsComponentComponent } from './articledetails-component/articledetails-component.component';
 import { CasedetailsComponentComponent } from './casedetails-component/casedetails-component.component';
+import { DefectdetailsComponent } from './defectdetails/defectdetails.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CasedetailsComponentComponent } from './casedetails-component/casedetai
     DefectsComponentComponent,
     DetailsComponentComponent,
     ArticledetailsComponentComponent,
-    CasedetailsComponentComponent
+    CasedetailsComponentComponent,
+    DefectdetailsComponent
   ],
   imports: [
     SidebarModule,
