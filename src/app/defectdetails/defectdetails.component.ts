@@ -71,10 +71,10 @@ export class DefectdetailsComponent implements OnInit {
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-      // console.log('value:', value)
+      console.log('value:', value)
 
       value = this.removeEmptyOrNull(value);
-      let json: DefectDetails[] = JSON.parse(value);
+      let json: any[] = value!=null && value.length>1?JSON.parse(value):value;
       json[0] = this.removeEmptyOrNull(json[0]);
       console.log('Json:', json)
       this.inputData = json;
