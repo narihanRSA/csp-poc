@@ -1,4 +1,5 @@
 
+import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
 import { MatTableDataSource } from "@angular/material/table";
 
 export enum DetailType {
@@ -70,7 +71,54 @@ export class DefectsResults {
 }
 
 export interface DefectDetails {
-
+  Id?:string,
+  OwnerId?:string,
+  IsDeleted?:boolean,
+  Name?:string,
+  CurrencyIsoCode?:string,
+  CreatedDate?:Date,
+  CreatedById?:string,
+  LastModifiedDate?:Date,
+  LastModifiedById?:string,
+  SystemModstamp?:Date,
+  LastViewedDate?:Date,
+  LastReferencedDate?:Date,
+  ConnectionReceivedId?:string,
+  ConnectionSentId?:string,
+  ACTION_TIMESTAMP__c?:string,
+  COMPANY__c?:string,
+  CONTACT__c?:string,
+  DETAIL__c?:string,
+  DISCOVERY__c?:string,
+  EMAIL__c?:string,
+  FAMILY__c?:string,
+  FOUND_IN_VERSION__c?:string,
+  ID__c?:string,
+  IS_ACTIVE__c?:string,
+  Jira_Defect__c?:string,
+  OS_VERSION__c?:string,
+  OS__c?:string,
+  OWNER__c?:string,
+  PHONE__c?:string,
+  PRIORITY__c?:string,
+  PRODUCT__c?:string,
+  PROJECT_MANAGER__c?:string,
+  REASON_CODE__c?:string,
+  REC_TYPE__c?:string,
+  RESOLUTION__c?:string,
+  SEVERITY__c?:string,
+  STATE__c?:string,
+  SUBMITTER__c?:string,
+  SUBMIT_DATE__c?:string,
+  TITLE__c?:string,
+  Type__c?:string,
+  Hyperlink__c?:string,
+  Component__c?:string,
+  Content_Type__c?:string,
+  Fixed_Version__c?:string,
+  Issue_Type__c?:string,
+  Project__c?:string,
+  Body?:string
 }
 
 export interface CaseDetails {

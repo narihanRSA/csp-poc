@@ -18,7 +18,6 @@
 
   <div>
     <!-- Subject -->
-    <h3 style="text-align: center; margin:20px;">{{inputData[0].Title}}</h3>
     <div class="mat-elevation-z8" style="margin:20px;">
       <table mat-table [dataSource]="data">
         <ng-container [matColumnDef]="column" *ngFor="let column of inputCol; let i = index">

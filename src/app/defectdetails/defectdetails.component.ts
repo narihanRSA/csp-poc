@@ -71,19 +71,21 @@ export class DefectdetailsComponent implements OnInit {
     }), catchError(error => {
       return throwError('Something went wrong!');
     })).subscribe((value: any) => {
-
       // console.log('value:', value)
-      value= this.removeEmptyOrNull(value)
-      console.log('value:', value)
-      this.inputData = value;
-      // for(var key in value[0]){
-      //   if(key!=='Body')
-      //     this.displayedColumns.push(key);
-      // }
-      // this.inputCol = ["0"].concat(
-      //   this.inputData.map(x => x.ArticleNumber!.toString())
-      // );
-      // this.data = this.displayedColumns.map(x => this.formatInputRow(x));
+
+      value = this.removeEmptyOrNull(value);
+      let json: DefectDetails[] = JSON.parse(value);
+      json[0] = this.removeEmptyOrNull(json[0]);
+      console.log('Json:', json)
+      this.inputData = json;
+      for (var key in json[0]) {
+        if (key !== 'Body')
+          this.displayedColumns.push(key);
+      }
+      this.inputCol = ["0"].concat(
+        this.inputData.map(x => x.Id!.toString())
+      );
+      this.data = this.displayedColumns.map(x => this.formatInputRow(x));
 
       console.log("articles: ", value);
     });
@@ -118,7 +120,7 @@ export class DefectdetailsComponent implements OnInit {
     output[0] = row;
     for (let i = 0; i < this.inputData.length; ++i) {
       // if(this.inputData[i][row] != null){
-        output[this.inputData[i].ArticleNumber] = this.inputData[i][row];
+      output[this.inputData[i].Id] = this.inputData[i][row];
       // }
 
     }
@@ -126,7 +128,7 @@ export class DefectdetailsComponent implements OnInit {
     return output;
   }
 
-  openArticle(){
+  openArticle() {
     window.open(`https://rsasecurity.my.salesforce.com/${this.id}`);
   }
 }

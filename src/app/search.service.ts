@@ -325,7 +325,6 @@ export class BlogService {
       })
     }).pipe(
       map((data: DefectDetails[]) => {
-        console.log(data)
         return data;
       }),
       catchError(err => of([]))
